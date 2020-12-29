@@ -335,14 +335,17 @@ const Calendar = ({
       {/* Legenda de cores */}
       <div className="mb-8 flex gap-x-4">
         {Actions.map((i, j) => {
+          let bgColor = "bg-" + i.color1;
+          let textColor = "text-" + i.color2;
+
           return (
             <div
-              className={`flex items-center bg-${i.color1} py-1 px-2 rounded-full`}
+              className={`flex items-center ${bgColor} py-1 px-2 rounded-full`}
               key={j}
             >
-              <div className={`h-2 w-2 rounded-full bg-${i.color2} mr-2`}></div>
+              <div className={`h-2 w-2 rounded-full ${bgColor} mr-2`}></div>
               <div
-                className={`text-xx font-semibold uppercase tracking-wider text-${i.color3}`}
+                className={`text-xx font-semibold uppercase tracking-wider ${textColor}`}
               >
                 {i.name}
               </div>
@@ -439,17 +442,11 @@ const Col = ({
   setCliente,
   setLoading,
 }) => {
+  let bgColor = "bg-" + Actions[action - 1].color1;
+  let textColor = "text-" + Actions[action - 1].color2;
   return (
-    <div
-      className={`calendar-day-col flyover-parent prose ${
-        action ? "bg-" + Actions[action - 1].color1 : ""
-      }`}
-    >
-      <div
-        className={`text-sm font-medium leading-5 text-${
-          Actions[action - 1].color2
-        }`}
-      >
+    <div className={`calendar-day-col flyover-parent prose ${bgColor}`}>
+      <div className={`text-sm font-medium leading-5 ${textColor}`}>
         {title}
       </div>
       {/* <div className={`text-sm text-${Actions[action - 1].color3}`}>
