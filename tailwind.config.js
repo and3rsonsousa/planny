@@ -1,7 +1,7 @@
 module.exports = {
   purge: [
     {
-      content: "./pages/**/*.js",
+      content: ["./pages/**/*.js"],
       safelist: [/purple\-100/, /purple\-600/],
     },
   ],
