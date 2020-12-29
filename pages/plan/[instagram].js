@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { GraphQLClient } from "graphql-request";
 import Head from "next/head";
 import dayjs from "dayjs";
@@ -8,8 +8,6 @@ dayjs.locale("pt-br");
 const graphcms = new GraphQLClient(
   "https://api-us-east-1.graphcms.com/v2/ckj80c5b1qjor01xpclyienfi/master"
 );
-
-const ClientContext = React.createContext();
 
 export async function getStaticProps({ params }) {
   const clients = await getClients(params.instagram);
@@ -338,6 +336,7 @@ const Calendar = ({
       <div className="mb-8 flex gap-x-4">
         {Actions.map((i, j) => {
           let bgColor = "bg-" + i.color1;
+          let bgColor2 = "bg-" + i.color2;
           let textColor = "text-" + i.color2;
 
           return (
@@ -345,7 +344,7 @@ const Calendar = ({
               className={`flex items-center ${bgColor} py-1 px-2 rounded-full`}
               key={j}
             >
-              <div className={`h-2 w-2 rounded-full ${bgColor} mr-2`}></div>
+              <div className={`h-2 w-2 rounded-full ${bgColor2} mr-2`}></div>
               <div
                 className={`text-xx font-semibold uppercase tracking-wider ${textColor}`}
               >
@@ -465,7 +464,7 @@ const getActions = () => [
     name: "Postagem",
     slug: "postagem",
     color1: "purple-100",
-    color2: "purple-600",
+    color2: "purple-500",
     color3: "purple-900",
     color4: "white",
   },
