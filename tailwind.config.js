@@ -1,7 +1,7 @@
 module.exports = {
   purge: {
     content: ["./pages/**/*.js"],
-    safelist: [/bg\-purple\-100/, /bg\-purple\-600/],
+    safelist: ["bg-purple-100", "bg-purple-600"],
   },
 
   darkMode: false, // or 'media' or 'class'
