@@ -3,9 +3,9 @@ import Router from "next/router";
 import Head from "next/head";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
-import { useApp } from "../utility/AppContext";
-import { getClients, getClient, graphcms } from "../utility/graphql-data";
-import { useAuth } from "../utility/AuthProvider";
+import { useApp } from "../../utility/AppContext";
+import { getClients, getClient, graphcms } from "../../utility/graphql-data";
+import { useAuth } from "../../utility/AuthProvider";
 import Link from "next/link";
 
 dayjs.locale("pt-br");

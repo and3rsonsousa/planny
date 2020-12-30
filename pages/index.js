@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import { GraphQLClient } from "graphql-request";
 import Head from "next/head";
-import { useAuth } from "./utility/AuthProvider";
+import { useAuth } from "../utility/AuthProvider";
 
 export async function getStaticProps() {
   const graphcms = new GraphQLClient(

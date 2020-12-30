@@ -1,8 +1,8 @@
 import "../styles/globals.css";
-import { AppProvider } from "./utility/AppContext";
-import { AuthProvider } from "./utility/AuthProvider";
+import { AppProvider } from "../utility/AppContext";
+import { AuthProvider } from "../utility/AuthProvider";
+import { doLogin } from "../utility/AuthProvider";
 import ls from "local-storage";
-import { doLogin } from "./utility/AuthProvider";
 
 function MyApp({ Component, pageProps }) {
   const localUser = ls.get("localUser");
