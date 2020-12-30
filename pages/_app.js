@@ -1,7 +1,21 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
+import { AppProvider } from "./utility/AppContext";
+import { AuthProvider } from "./utility/AuthProvider";
+import ls from "local-storage";
+import { doLogin } from "./utility/AuthProvider";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  const localUser = ls.get("localUser");
+  if (localUser != undefined) {
+    // doLogin(localUser);
+  }
+  return (
+    <AuthProvider>
+      <AppProvider>
+        <Component {...pageProps} />
+      </AppProvider>
+    </AuthProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

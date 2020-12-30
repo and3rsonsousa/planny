@@ -41,15 +41,12 @@
   @apply bg-gray-800 hover:bg-gray-700 text-gray-300;
 }
 
-.button-circle {
-  @apply w-4 h-4 leading-4 inline-block p-0;
-}
 .button-small {
-  @apply py-0 px-2 text-xs tracking-widest;
+  @apply py-1 px-2 text-xs tracking-widest;
 }
 
 .flyover {
-  @apply absolute p-2 hidden flex gap-2;
+  @apply absolute p-1 hidden flex gap-1;
 }
 
 .flyover-parent {
@@ -57,11 +54,67 @@
 }
 
 .flyover-parent:hover .flyover {
-  @apply flex;
+  @apply lg:flex;
 }
 
 .loader {
   @apply border-4 border-gray-200 w-8 h-8 rounded-full animate-spin;
   border-top-color: theme("colors.indigo.600");
   border-right-color: theme("colors.indigo.600");
+}
+
+.bg-postagem-light {
+  @apply bg-purple-100 text-purple-500;
+}
+.bg-postagem-light h5 {
+  @apply text-purple-900;
+}
+.bg-postagem-dark {
+  @apply bg-purple-500 text-purple-200;
+}
+.bg-postagem-dark h5 {
+  @apply text-white;
+}
+
+.bg-stories-light {
+  @apply bg-pink-100 text-pink-500;
+}
+.bg-stories-light h5 {
+  @apply text-pink-700;
+}
+.bg-stories-dark {
+  @apply bg-pink-500 text-pink-200;
+}
+.bg-stories-dark h5 {
+  @apply text-white;
+}
+
+.bg-evento-light {
+  @apply bg-yellow-100 text-yellow-500;
+}
+.bg-evento-light h5 {
+  @apply text-yellow-700;
+}
+.bg-evento-dark {
+  @apply bg-yellow-500 text-yellow-200;
+}
+.bg-evento-dark h5 {
+  @apply text-white;
+}
+
+.bg-meeting-light {
+  @apply bg-green-100 text-green-500;
+}
+.bg-meeting-light h5 {
+  @apply text-green-700;
+}
+.bg-meeting-dark {
+  @apply bg-green-500 text-green-200;
+}
+.bg-meeting-dark h5 {
+  @apply text-white;
+}
+
+.menu-links a {
+  @apply text-gray-400 font-semibold text-sm flex items-center mx-3;
 }
