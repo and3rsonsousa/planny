@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext } from "react";
 import { GraphQLClient } from "graphql-request";
 import dayjs from "dayjs";
 const graphcms = new GraphQLClient(

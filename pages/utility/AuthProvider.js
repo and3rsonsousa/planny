@@ -1,4 +1,4 @@
-import { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState } from "react";
 import ls from "local-storage";
 
 const AuthContext = createContext();

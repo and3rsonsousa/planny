@@ -1,3 +1,4 @@
+import React from "react";
 import { GraphQLClient } from "graphql-request";
 const graphcms = new GraphQLClient(
   "https://api-us-east-1.graphcms.com/v2/ckj80c5b1qjor01xpclyienfi/master"
