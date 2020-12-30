@@ -181,7 +181,7 @@ const NovaAcao = ({ Cliente }) => {
     document.getElementById("date").value = null;
     document.querySelectorAll("input[name=action]")[0].checked = true;
 
-    if (document.getElementById("keep").value != true) {
+    if (!document.getElementById("keep").checked) {
       setVisible(false);
     }
   };
@@ -244,7 +244,14 @@ const NovaAcao = ({ Cliente }) => {
         </div>
         <hr />
         <label className="flex items-center">
-          <input type="checkbox" id="keep" />
+          <input
+            type="checkbox"
+            id="keep"
+            onChange={(e) => {
+              console.log(e.target.checked);
+              return !e.target.checked;
+            }}
+          />
           <div className="ml-2 text-gray-400">Continuar inserindo</div>
         </label>
         <div className="flex justify-end mt-8">
@@ -302,16 +309,15 @@ const Calendar = ({ thisMonth, weeks, nextMonth, prevMonth }) => {
       {/* Legenda de cores */}
       <div className="mb-8 flex gap-x-4">
         {Actions.map((i, j) => {
-          let bgColor = "bg-" + i.color1;
-          let bgColor2 = "bg-" + i.color2;
-          let textColor = "text-" + i.color2;
+          let bgColor1 = "bg-" + i.slug + "-light";
+          let bgColor2 = "bg-" + i.slug + "-dark";
 
           return (
             <div
-              className="flex items-center py-1 px-2 rounded-full bg-postagem-light"
+              className={`flex items-center py-1 px-2 rounded-full ${bgColor1}`}
               key={j}
             >
-              <div className="h-2 w-2 rounded-full mr-2 bg-postagem-dark"></div>
+              <div className={`h-2 w-2 rounded-full mr-2 ${bgColor2}`}></div>
               <div className="text-xx font-semibold uppercase tracking-wider">
                 {i.name}
               </div>
@@ -424,24 +430,25 @@ const Flyover = ({ id }) => {
 };
 
 const Col = ({ id, title, description, action }) => {
+  console.log(action);
   const classNames = (action) => {
     switch (action) {
       case 1:
-        return "calendar-day-col flyover-parent prose bg-postagem-dark lg:bg-postagem-light";
+        return "calendar-day-col flyover-parent prose bg-postagem-dark";
       case 2:
-        return "calendar-day-col flyover-parent prose bg-stories-dark lg:bg-stories-light";
+        return "calendar-day-col flyover-parent prose bg-stories-dark";
       case 3:
-        return "calendar-day-col flyover-parent prose bg-evento-dark lg:bg-evento-light";
+        return "calendar-day-col flyover-parent prose bg-evento-dark";
       case 4:
-        return "calendar-day-col flyover-parent prose bg-meeting-dark lg:bg-meeting-light";
+        return "calendar-day-col flyover-parent prose bg-meeting-dark";
       default:
-        return "calendar-day-col flyover-parent prose bg-postagem-dark lg:bg-postagem-light";
+        return "calendar-day-col flyover-parent prose bg-postagem-dark";
     }
   };
 
   return (
-    <div className={classNames()}>
-      <div className={`hidden lg:block text-sm font-medium leading-5`}>
+    <div className={classNames(action)}>
+      <div className={`hidden lg:block text-xs font-medium leading-4`}>
         {title}
       </div>
       <Flyover id={id} />
