@@ -18,6 +18,7 @@ const getClient = async (instagram) => {
             description
             date
             action
+            done
         }
     }
     }`,
@@ -42,6 +43,7 @@ const getClients = async () => {
             description
             date
             action
+            done
         }
     }
     }`
@@ -58,6 +60,7 @@ const getPosts = async (clientID) => {
             description
             date
             action   
+            done
         }
     }`,
     {
@@ -77,6 +80,7 @@ const createPost = async ({ title, description, action, date, client }) => {
           description
           action
           date
+          done
         }
       }`,
     {

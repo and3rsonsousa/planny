@@ -369,7 +369,7 @@ const Calendar = ({ thisMonth, weeks, nextMonth, prevMonth }) => {
   );
 };
 
-const Grid = ({ id, title, description, date, setCliente, setLoading }) => {
+const Grid = ({ id, title, description, date, done }) => {
   return (
     <div className="border p-4 flyover-parent">
       <h6 className="text-xs tracking-widest text-gray-400">
@@ -378,6 +378,37 @@ const Grid = ({ id, title, description, date, setCliente, setLoading }) => {
       <h4>{title}</h4>
       <div className="text-sm">{description}</div>
       <Flyover id={id} />
+      <div className="absolute bottom-0 right-0 p-1">
+        {done ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="w-6 text-green-400"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clipRule="evenodd"
+            />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-6 text-gray-300"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        )}
+      </div>
     </div>
   );
 };
