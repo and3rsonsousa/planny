@@ -183,6 +183,8 @@ const NovaAcao = ({ Cliente }) => {
 
     if (!document.getElementById("keep").checked) {
       setVisible(false);
+    } else {
+      document.getElementById("title").focus();
     }
   };
 
