@@ -178,7 +178,7 @@ const NovaAcao = ({ Cliente }) => {
 
     document.getElementById("title").value = "";
     document.getElementById("description").value = "";
-    document.getElementById("date").value = null;
+    document.getElementById("date").value = dayjs().format("YYYY-MM-DD");
     document.querySelectorAll("input[name=action]")[0].checked = true;
 
     if (!document.getElementById("keep").checked) {
