@@ -4,11 +4,17 @@
 @tailwind utilities;
 
 .calendar-grid {
-  @apply grid grid-cols-7 border-b border-r;
+  @apply grid grid-cols-7 border-b;
 }
+
 .calendar-day {
-  @apply p-4 border-t border-l;
+  @apply p-2 border-t border-l;
 }
+
+.calendar-day:nth-child(7n + 1) {
+  @apply border-r;
+}
+
 .calendar-week {
   @apply text-sm font-medium text-center tracking-widest;
 }
@@ -22,7 +28,7 @@
 }
 
 .calendar-day-col {
-  @apply p-2 rounded-md mt-1;
+  @apply p-2 rounded mt-2;
 }
 
 .calendar-month-button {
@@ -30,23 +36,38 @@
 }
 
 .button {
-  @apply py-3 px-8 text-sm font-semibold text-gray-600 bg-gray-200 hover:bg-gray-300 rounded-full;
+  @apply py-3 px-8 text-sm font-semibold text-gray-600 bg-white transform transition-all duration-300 hover:bg-gray-100 border rounded-full shadow-lg hover:translate-y-1 hover:shadow-sm;
 }
 
-.button.primary {
-  @apply bg-indigo-600 hover:bg-indigo-700 text-white;
+.button-primary {
+  @apply bg-indigo-600 hover:bg-indigo-500 text-white border-indigo-600;
 }
 
-.button.dark {
+.button-muted {
+  @apply border-transparent shadow-none hover:bg-white hover:text-gray-800 px-0 hover:shadow-none;
+}
+
+.button-dark {
   @apply bg-gray-800 hover:bg-gray-700 text-gray-300;
 }
 
 .button-small {
-  @apply py-1 px-2 text-xs tracking-widest;
+  @apply py-1 px-4 text-xs tracking-widest;
+}
+
+.button-group button:first-child {
+  @apply rounded-l rounded-r-none;
+}
+
+.button-group button:last-child {
+  @apply rounded-r rounded-l-none;
+}
+
+.button-group {
 }
 
 .flyover {
-  @apply absolute p-1 hidden flex gap-1;
+  @apply absolute p-1 invisible flex transition-all top-0 right-0 opacity-0  transform duration-300;
 }
 
 .flyover-parent {
@@ -54,7 +75,11 @@
 }
 
 .flyover-parent:hover .flyover {
-  @apply lg:flex;
+  @apply lg:flex opacity-100 visible -translate-y-2;
+}
+
+.flyover.button-group button {
+  @apply bg-gray-700 hover:bg-gray-900 text-gray-300 py-1 px-2;
 }
 
 .loader {
@@ -115,6 +140,32 @@
   @apply text-white;
 }
 
-.menu-links a {
-  @apply text-gray-400 font-semibold text-sm flex items-center mx-3;
+.menu-links .link {
+  @apply text-gray-400 font-semibold text-sm flex items-center mx-3 transition-colors hover:text-indigo-600;
+}
+
+.dashboard-card {
+  @apply prose text-center p-8 bg-gray-50 rounded-2xl;
+}
+
+.popup {
+  @apply p-8 fixed z-50 h-screen w-screen top-0 left-0 flex items-center bg-indigo-900 bg-opacity-20;
+}
+
+.popup .popup-content {
+  @apply max-w-md mx-auto bg-white p-8 rounded-lg shadow-2xl prose;
+}
+
+.popup .popup-content hr {
+  @apply my-4;
+}
+
+.form-field {
+  @apply px-4 py-3 border-2 rounded w-full focus:border-gray-500 mb-4 mt-2;
+}
+
+.instagram-grid::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
 }

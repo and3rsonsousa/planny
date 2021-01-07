@@ -1,85 +1,168 @@
-import React, { useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
-import { GraphQLClient } from "graphql-request";
 import Head from "next/head";
-import { useAuth } from "../utility/AuthProvider";
+import { getClientsFromUser } from "../utility/graphql-data";
+import { AuthContext } from "../utility/AuthContext";
+import { useApp } from "../utility/AppContext";
+import LoginWrapper from "../components/LoginWrapper";
+import HeaderWrapper from "../components/HeaderWrapper";
+import Calendar from "../components/Calendar";
+import ProgressBar from "../components/ProgressBar";
+import HeaderMenu from "../components/HeaderMenu";
+import NewIdeaPopup from "../components/NewIdeaPopup";
 
-export async function getStaticProps() {
-  const graphcms = new GraphQLClient(
-    "https://api-us-east-1.graphcms.com/v2/ckj80c5b1qjor01xpclyienfi/master"
-  );
-
-  const { clients } = await graphcms.request(
-    `
-    {
-      clients(orderBy: name_ASC){
-        id
-        name
-        instagram
-      }
-    }`
-  );
-
-  return {
-    props: {
-      clients,
-    },
-  };
-}
+import dayjs from "dayjs";
 
 const Home = (props) => {
-  const { user, login, msg } = useAuth();
+  const { user } = useContext(AuthContext);
+  const [thisMonth, setThisMonth] = useState(dayjs());
+  const { posts, ideas, setPosts, setIdeas, useVisible } = useApp();
+  const [clients, setClients] = useState(null);
+  const [visible, setVisible] = useVisible;
+  let completedActions = 0;
 
+  useEffect(() => {
+    if (Object.keys(user).length > 0) {
+      getClientsFromUser(user.email)
+        .then((clients) => {
+          setClients(clients);
+
+          let allPosts = [];
+          let allIdeas = [];
+
+          clients.map((c) => {
+            c.posts.map((p) => {
+              allPosts.push(p);
+            });
+            c.ideas.map((i) => {
+              allIdeas.push(i);
+            });
+          });
+          setPosts(allPosts);
+          setIdeas(allIdeas);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [thisMonth, user]);
+
+  completedActions = posts.filter((p) => p.done).length;
   return (
-    <div className="bg-gray-100 p-12 h-screen flex items-center">
-      <Head>
-        <title>Planny</title>
-      </Head>
-
-      <div className="mx-auto bg-white p-8 rounded-lg shadow-2xl">
-        <h3 className="mb-0 text-2xl font-medium text-indigo-700">Planny</h3>
-
-        {user.logged ? (
-          <>
-            <div className="prose mb-8">
-              Escolha um dos clientes para gerenciar
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              {props.clients.map((i, j) => (
-                <div key={j}>
-                  <Link href={`/plan/${i.instagram}`} key={i.instagram}>
-                    <a className="button primary block text-center">{i.name}</a>
-                  </Link>
+    <LoginWrapper>
+      <div>
+        <Head>
+          <title>{user.name} / Planny</title>
+        </Head>
+        <HeaderWrapper>
+          <HeaderMenu />
+        </HeaderWrapper>
+        {clients ? (
+          <div className="p-4 container mx-auto">
+            <div className="grid grid-cols-5 gap-8">
+              <SideBar clients={clients} />
+              <div className="grid col-span-3">
+                <div>
+                  <div className="prose">
+                    <h3>Dashboard</h3>
+                  </div>
+                  <div className="grid grid-cols-3 py-12 gap-8">
+                    <div className="dashboard-card">
+                      <div className="text-8xl">{clients.length}</div>
+                      <div className="uppercase font-medium tracking-widest text-gray-400 text-xs">
+                        Clientes
+                      </div>
+                    </div>
+                    <div className="dashboard-card">
+                      <div className="text-8xl">{posts.length}</div>
+                      <div className="uppercase font-medium tracking-widest text-gray-400 text-xs">
+                        AÇÕES
+                      </div>
+                      <div className="mt-4">
+                        <ProgressBar completed={completedActions} />
+                      </div>
+                      <div className="text-xs mt-2 font-medium tracking-widest ">
+                        <span className="font-bold">{completedActions}</span>{" "}
+                        AÇÕES FINALIZADAS
+                      </div>
+                    </div>
+                    <div className="dashboard-card">
+                      <div className="text-8xl">{ideas.length}</div>
+                      <div className="uppercase font-medium tracking-widest text-gray-400 text-xs">
+                        IDEIAS
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </>
-        ) : (
-          <div className="prose mt-4 w-80">
-            <input
-              type="email"
-              id="mail"
-              placeholder="E-mail"
-              className="border-2 p-2 mb-2 w-full rounded-lg"
-            />
-            {msg != "" && (
-              <div className="prose text-sm p-2 text-red-600 mb-4 rounded-lg bg-red-100">
-                {msg}
+                <Calendar
+                  thisMonth={thisMonth}
+                  nextMonth={() => setThisMonth(thisMonth.add(1, "M"))}
+                  prevMonth={() => setThisMonth(thisMonth.subtract(1, "M"))}
+                />
               </div>
-            )}
-            <button
-              className="button primary"
-              onClick={() => {
-                login(document.getElementById("mail").value);
-              }}
-            >
-              Login
-            </button>
+              <div className="prose">
+                <h3>Ideias</h3>
+                <div className="mb-4">
+                  <button
+                    className="button w-full justify-center button-small button-primary flex items-center"
+                    onClick={() => setVisible(true)}
+                  >
+                    <span>NOVA IDEIA</span>
+                    <span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        className=" h-6 inline-block ml-2"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+                <div className="divide-y">
+                  {ideas.map((idea, i) => (
+                    <div
+                      className="py-2 prose text-sm flex items-center"
+                      key={idea.id}
+                    >
+                      <div
+                        className="h-2 w-2 rounded-full"
+                        style={{ backgroundColor: idea.client.bgColor }}
+                      ></div>
+                      <div className="ml-2">{idea.title}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <NewIdeaPopup clients={clients} />
           </div>
+        ) : (
+          ""
         )}
       </div>
-    </div>
+    </LoginWrapper>
   );
 };
+
+const SideBar = ({ clients }) => (
+  <div className="sidebar">
+    <div className="prose">
+      <h3>Gerenciar</h3>
+    </div>
+    <div className="divide-solid divide-y">
+      {clients.map((i, j) => (
+        <div key={j}>
+          <Link href={`/plan/${i.instagram}`} key={i.instagram}>
+            <a className="block py-2 text-gray-500">{i.name}</a>
+          </Link>
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
 export default Home;

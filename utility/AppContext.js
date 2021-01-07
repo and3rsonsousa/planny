@@ -4,12 +4,13 @@ import dayjs from "dayjs";
 const graphcms = new GraphQLClient(
   "https://api-us-east-1.graphcms.com/v2/ckj80c5b1qjor01xpclyienfi/master"
 );
-import { getPosts, createPost, removePost } from "./graphql-data";
+import { execGraphQl } from "./graphql-data";
 
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
+  const [ideas, setIdeas] = useState([]);
   const useVisible = useState(false);
   const useLoading = useState(false);
   const Actions = [
@@ -31,23 +32,80 @@ const AppProvider = ({ children }) => {
     },
   ];
 
-  const refreshPosts = async (client) => {
+  const addNewPost = async (post) => {
+    console.log(post);
+    const query = `
+    mutation($title: String!, $description: String!, $action: Int!, $date: Date!, $client: ID!) { 
+      createPost(data: {title: $title, description: $description, action: $action, date: $date,  client: {connect: {id:$client }}}){
+        id
+        title
+        description
+        action
+        date
+        done
+      }
+    }`;
+    const variables = post;
+
     try {
-      const latestsPosts = await getPosts(client);
-      setPosts(latestsPosts);
+      const result = await execGraphQl(query, variables);
+      const createdPost = result.createPost;
+      setPosts(() => {
+        const updatedPosts = [...posts, createdPost];
+        const [loading, setLoading] = useLoading;
+        setLoading(false);
+        return updatedPosts;
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const addPost = async (post) => {
+  const updatePost = async (post) => {
+    const query = `mutation($id:ID, $title: String!, $description: String!, $action: Int!, $date: Date!, $done: Boolean!) {
+      updatePost(where: {id: $id}, data: {title: $title, description: $description, action: $action, date: $date, done: $done}){
+        id
+        title
+        description
+        action
+        date
+        done
+        client{
+          id
+          bgColor
+          fgColor
+        }
+      }
+    }`;
+
+    const variables = post;
+
     try {
-      const newPost = await createPost(post);
+      const result = await execGraphQl(query, variables);
       setPosts((prevPosts) => {
-        let postsArray = [newPost, ...prevPosts];
-        postsArray = postsArray.sort((a, b) => {
-          return dayjs(b.date).subtract(dayjs(a.date));
-        });
+        const index = prevPosts.findIndex((p) => p.id === result.updatePost.id);
+        prevPosts[index] = result.updatePost;
+        const [loading, setLoading] = useLoading;
+        setLoading(false);
+        return prevPosts;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deletePost = async (id) => {
+    const query = `mutation($id: ID!){
+      deletePost(where: {id: $id}){
+        id
+      }
+    }`;
+    const variables = { id };
+
+    try {
+      const result = await execGraphQl(query, variables);
+      setPosts(() => {
+        const postsArray = posts.filter((i) => i.id != id);
         const [loading, setLoading] = useLoading;
         setLoading(false);
         return postsArray;
@@ -57,18 +115,50 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const updatePost = async (post) => {};
+  const addNewIdea = async (idea) => {
+    const query = `
+    mutation($title: String!, $client: ID!){
+      createIdea(data:{title: $title, client: {connect:  {id: $client}}}){
+        id
+        title
+        client{
+          id
+          fgColor
+          bgColor
+        }
+      }
+    }`;
+    const variables = idea;
 
-  const deletePost = async (id) => {
     try {
-      const result = await removePost(id);
-
-      setPosts((allPosts) => {
-        let postsArray = allPosts.filter((i) => i.id != id);
-        console.log(postsArray);
+      const result = await execGraphQl(query, variables);
+      const createdIdea = result.createIdea;
+      setIdeas(() => {
+        const updatedIdeas = [...ideas, createdIdea];
         const [loading, setLoading] = useLoading;
         setLoading(false);
-        return postsArray;
+        return updatedIdeas;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteIdea = async (id) => {
+    const query = `
+    mutation($id: ID!){
+      deleteIdea(where: {id: $id}){
+        id
+      }
+    }`;
+    const variables = { id };
+    try {
+      const result = await execGraphQl(query, variables);
+      setIdeas(() => {
+        const ideasArray = ideas.filter((i) => i.id != id);
+        const [loading, setLoading] = useLoading;
+        setLoading(false);
+        return ideasArray;
       });
     } catch (error) {
       console.log(error);
@@ -80,9 +170,13 @@ const AppProvider = ({ children }) => {
       value={{
         posts,
         setPosts,
-        refreshPosts,
-        addPost,
+        addNewPost,
         deletePost,
+        ideas,
+        setIdeas,
+        addNewIdea,
+        deleteIdea,
+        updatePost,
         useVisible,
         useLoading,
         Actions,

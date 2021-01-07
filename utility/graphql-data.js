@@ -3,6 +3,96 @@ import { GraphQLClient } from "graphql-request";
 const graphcms = new GraphQLClient(
   "https://api-us-east-1.graphcms.com/v2/ckj80c5b1qjor01xpclyienfi/master"
 );
+// import dayjs from "dayjs";
+
+const execGraphQl = async (query, variable) => {
+  const result = await graphcms.request(query, variable);
+  return result;
+};
+
+const logUser = async (email) => {
+  const { theUsers } = await graphcms.request(
+    `
+    query UserData($email: String!){
+      theUsers(where: {email: $email}){
+        email
+        password
+      }
+    }`,
+    {
+      email,
+    }
+  );
+  return { theUser: theUsers[0] };
+};
+
+const getTheUser = async (email) => {
+  const { theUsers } = await graphcms.request(
+    `query UserData($email: String!){
+      theUsers(where:{email: $email}){
+        id
+        name
+        email
+      }
+    }`,
+    {
+      email,
+    }
+  );
+  return { theUser: theUsers[0] };
+};
+
+const getTheUserFull = async (email) => {
+  /* 
+  Mostrar apenas os posts do mês
+  //
+  (where: {date_gte:"${dayjs()
+  .startOf("M")
+  .format("YYYY-MM-DD")}", date_lte:"${dayjs()
+.endOf("M")
+.format("YYYY-MM-DD")}"}) */
+  const { theUsers } = await graphcms.request(
+    `query UserData($email: String!){
+      theUsers(where:{email: $email}){
+        id
+        name
+        email
+        clients(orderBy:name_ASC){
+          id
+          name
+          instagram
+          posts{
+            id
+            title
+            description
+            action
+            date
+            done
+            client{
+              id
+              bgColor
+              fgColor
+            }
+          }
+          ideas{
+            id
+            title
+            client{
+              id
+              name
+              bgColor
+              fgColor
+            }
+          }
+        }
+      }
+    }`,
+    {
+      email,
+    }
+  );
+  return { theUserFull: theUsers[0] };
+};
 
 const getClient = async (instagram) => {
   const { clients } = await graphcms.request(
@@ -19,6 +109,11 @@ const getClient = async (instagram) => {
             date
             action
             done
+            client{
+              id
+              bgColor
+              fgColor
+            }
         }
     }
     }`,
@@ -44,11 +139,21 @@ const getClients = async () => {
             date
             action
             done
+            client{
+              id
+              bgColor
+              fgColor
+            }
         }
     }
     }`
   );
   return clients;
+};
+
+const getClientsFromUser = async (email) => {
+  const { theUserFull } = await getTheUserFull(email);
+  return theUserFull.clients;
 };
 
 const getPosts = async (clientID) => {
@@ -64,51 +169,55 @@ const getPosts = async (clientID) => {
         }
     }`,
     {
-      instagram: instagram,
+      id: clientID,
     }
   );
   return posts;
 };
 
-const createPost = async ({ title, description, action, date, client }) => {
-  const result = await graphcms.request(
-    `
-      mutation($title: String!, $description: String!, $action: Int!, $date: Date!, $client: ID!) { 
-        createPost(data: {title: $title, description: $description, action: $action, date: $date,  client: {connect: {id:$client }}}){
-          id
-          title
-          description
-          action
-          date
-          done
-        }
-      }`,
-    {
-      title,
-      description,
-      action,
-      date,
-      client,
-    }
-  );
-  return result.createPost;
+// const updateThePost = async ({
+//   id,
+//   title,
+//   description,
+//   action,
+//   date,
+//   done,
+// }) => {
+//   const result = await graphcms.request(
+//     `mutation($id:ID, $title: String!, $description: String!, $action: Int!, $date: Date!, $done: Boolean!) {
+//         updatePost(where: {id: $id}, data: {title: $title, description: $description, action: $action, date: $date, done: $done}){
+//           id
+//           title
+//           description
+//           action
+//           date
+//           done
+//           client{
+//             bgColor
+//             fgColor
+//           }
+//         }
+//       }`,
+//     {
+//       id,
+//       title,
+//       description,
+//       action,
+//       date,
+//       done,
+//     }
+//   );
+//   return result.updatePost;
+// };
+
+export {
+  execGraphQl,
+  getClients,
+  getClient,
+  getPosts,
+  // updateThePost,
+  graphcms,
+  logUser,
+  getTheUser,
+  getClientsFromUser,
 };
-
-const removePost = async (id) => {
-  const result = await graphcms.request(
-    `
-    mutation($id: ID!){
-      deletePost(where: {id: $id}){
-        id
-      }
-    }
-    `,
-    {
-      id,
-    }
-  );
-
-  return result.deletePost;
-};
-
-export { getClients, getClient, getPosts, createPost, removePost, graphcms };
