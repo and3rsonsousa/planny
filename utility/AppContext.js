@@ -52,6 +52,9 @@ const AppProvider = ({ children }) => {
       const createdPost = result.createPost;
       setPosts(() => {
         const updatedPosts = [...posts, createdPost];
+        const sortedPosts = updatedPosts.sort(
+          (a, b) => dayjs(b.date) - dayjs(a.date)
+        );
         const [loading, setLoading] = useLoading;
         setLoading(false);
         return updatedPosts;
