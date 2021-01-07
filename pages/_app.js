@@ -10,13 +10,10 @@ Router.events.on("routeChangeStart", (e) =>
     .querySelector(".page-loader")
     .classList.remove("opacity-0", "invisible", "scale-75")
 );
-Router.events.on(
-  "routeChangeComplete",
-  (j) =>
-    document
-      .querySelector(".page-loader")
-      .classList.add("opacity-0", "invisible", "scale-75")
-  // document.querySelector(".page-loader").classList.remove("opacity-100")
+Router.events.on("routeChangeComplete", (j) =>
+  document
+    .querySelector(".page-loader")
+    .classList.add("opacity-0", "invisible", "scale-75")
 );
 Router.events.on("routeChangeError", () =>
   document.querySelector(".page-loader").classList.add("opacity-0")

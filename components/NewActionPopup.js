@@ -36,6 +36,8 @@ const NewActionPopup = (props) => {
       return false;
     }
 
+    console.log(post);
+
     addNewPost(post);
     setPost(initialState);
     return true;
@@ -43,7 +45,7 @@ const NewActionPopup = (props) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setPost({ ...post, [name]: value });
+    setPost({ ...post, [name]: name === "action" ? parseInt(value) : value });
   };
 
   return (
