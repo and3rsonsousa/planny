@@ -98,7 +98,7 @@ const Calendar = ({
 };
 
 const Col = ({ id, title, description, action, client, showActions }) => {
-  const { deletePost } = useApp();
+  const { deletePost, updatePost } = useApp();
   const classNames = (action) => {
     switch (action) {
       case 1:
@@ -130,7 +130,7 @@ const Col = ({ id, title, description, action, client, showActions }) => {
       <div className={`hidden lg:block text-xs font-medium leading-4 truncate`}>
         {title}
       </div>
-      <Flyover id={id} deleteAction={deletePost} />
+      <Flyover id={id} deleteAction={deletePost} updateAction={updatePost} />
     </div>
   );
 };

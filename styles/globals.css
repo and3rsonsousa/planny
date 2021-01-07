@@ -83,7 +83,7 @@
 }
 
 .loader {
-  @apply border-4 border-gray-200 w-8 h-8 rounded-full animate-spin;
+  @apply border-4 border-indigo-200 w-8 h-8 rounded-full animate-spin;
   border-top-color: theme("colors.indigo.600");
   border-right-color: theme("colors.indigo.600");
 }

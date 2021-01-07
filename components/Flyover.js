@@ -3,6 +3,7 @@ import { useApp } from "../utility/AppContext";
 const Flyover = ({ id, deleteAction, updateAction }) => {
   const App = useApp();
   const [loading, setLoading] = App.useLoading;
+  const [visible, setVisible] = App.useLoading;
 
   const handleDelete = async (id) => {
     if (window.confirm("Deletar esse item?")) {
@@ -13,7 +14,7 @@ const Flyover = ({ id, deleteAction, updateAction }) => {
   };
 
   const handleUpdate = (id) => {
-    console.log("i'll open the popup to update");
+    console.log("handling update");
     return false;
   };
 
