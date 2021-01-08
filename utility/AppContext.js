@@ -34,10 +34,9 @@ const AppProvider = ({ children }) => {
   ];
 
   const addNewPost = async (post) => {
-    console.log(post);
     const query = `
     mutation($title: String!, $description: String!, $action: Int!, $date: Date!, $client: ID!) { 
-      createPost(data: {title: $title, description: $description, action: $action, date: $date,  client: {connect: {id:$client }}}){
+      createPost(data: {title: $title, description: $description, action: $action, date: $date, done: false,  client: {connect: {id:$client }}}){
         id
         title
         description

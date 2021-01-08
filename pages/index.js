@@ -77,7 +77,7 @@ const Home = (props) => {
                         AÇÕES
                       </div>
                       <div className="mt-4">
-                        <ProgressBar completed={completedActions} />
+                        <ProgressBar completed={completedActions} actions={posts.length} />
                       </div>
                       <div className="text-xs mt-2 font-medium tracking-widest ">
                         <span className="font-bold">{completedActions}</span>{" "}
