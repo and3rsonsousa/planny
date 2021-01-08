@@ -1,20 +1,35 @@
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useApp } from "../utility/AppContext";
 import Popup from "./Popup";
 
 const NewActionPopup = (props) => {
-  const { addNewPost, Actions } = useApp();
-  function initialState() {
-    return {
-      title: "",
-      description: "",
-      date: dayjs().format("YYYY-MM-DD"),
-      action: 1,
-      client: props.clients[0].id,
-    };
-  }
-  const [post, setPost] = useState(initialState);
+  const emptyState = {
+    title: "",
+    description: "",
+    date: dayjs().format("YYYY-MM-DD"),
+    action: 1,
+    client: props.clients[0].id,
+    done: false,
+  };
+  const {
+    posts,
+    addNewPost,
+    Actions,
+    toUpdate,
+    updatePost,
+    useLoading,
+  } = useApp();
+  const [post, setPost] = useState(emptyState);
+  const [loading, setLoading] = useLoading;
+  useEffect(() => {
+    if (toUpdate) {
+      const postToUpdate = posts.filter((p) => p.id === toUpdate)[0];
+      setPost(postToUpdate);
+    } else {
+      setPost(emptyState);
+    }
+  }, [toUpdate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -36,10 +51,14 @@ const NewActionPopup = (props) => {
       return false;
     }
 
-    console.log(post);
+    setLoading(true);
+    if (toUpdate) {
+      updatePost(post);
+    } else {
+      addNewPost(post);
+    }
 
-    addNewPost(post);
-    setPost(initialState);
+    setPost(emptyState);
     return true;
   };
 
@@ -48,8 +67,8 @@ const NewActionPopup = (props) => {
     setPost({ ...post, [name]: name === "action" ? parseInt(value) : value });
   };
 
-  return (
-    <Popup title="Nova Ação" addNew={doSubmit}>
+  return post ? (
+    <Popup title="Nova Ação" Submit={doSubmit}>
       <form onSubmit={handleSubmit}>
         <label>
           <h4>Título</h4>
@@ -105,6 +124,8 @@ const NewActionPopup = (props) => {
         </label>
       </form>
     </Popup>
+  ) : (
+    ""
   );
 };
 

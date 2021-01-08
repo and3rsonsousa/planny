@@ -2,9 +2,17 @@ import React from "react";
 import { useApp } from "../utility/AppContext";
 
 const Popup = (props) => {
-  const App = useApp();
-  const [visible, setVisible] = App.useVisible;
-  const [loading, setLoading] = App.useLoading;
+  const { useVisible, setToUpdate, toUpdate } = useApp();
+  const [visible, setVisible] = useVisible;
+
+  const handleClose = () => {
+    setVisible(false);
+    if (toUpdate) {
+      console.log("tem toUpdate no fechamendo do botão");
+      setToUpdate(null);
+    }
+  };
+
   return visible ? (
     <div className="popup">
       <div className="popup-content">
@@ -12,7 +20,7 @@ const Popup = (props) => {
           <div>{props.title || "Popup"}</div>
           <div
             className="text-xs text-gray-400 tracking-widest cursor-pointer"
-            onClick={() => setVisible(false)}
+            onClick={handleClose}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -46,16 +54,16 @@ const Popup = (props) => {
             </label>
           </div>
           <div className="flex justify-end">
-            <button
-              className="button button-muted"
-              onClick={() => setVisible(false)}
-            >
+            <button className="button button-muted" onClick={handleClose}>
               CANCELAR
             </button>
             <button
               className="ml-4 button button-primary"
               onClick={() => {
-                props.addNew();
+                props.Submit();
+                if (toUpdate) {
+                  setToUpdate(null);
+                }
                 if (!document.getElementById("keep").checked) {
                   setVisible(false);
                 } else {
@@ -68,7 +76,7 @@ const Popup = (props) => {
                 }
               }}
             >
-              INSERIR
+              {toUpdate ? "ATUALIZAR" : "INSERIR"}
             </button>
           </div>
         </div>

@@ -11,6 +11,7 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [ideas, setIdeas] = useState([]);
+  const [toUpdate, setToUpdate] = useState(null);
   const useVisible = useState(false);
   const useLoading = useState(false);
   const Actions = [
@@ -57,7 +58,7 @@ const AppProvider = ({ children }) => {
         );
         const [loading, setLoading] = useLoading;
         setLoading(false);
-        return updatedPosts;
+        return sortedPosts;
       });
     } catch (error) {
       console.log(error);
@@ -147,6 +148,36 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const updateIdea = async (idea) => {
+    const query = `mutation($id:ID, $title: String!, $client: ID!) {
+      updateIdea(where: {id: $id}, data: {title: $title, client: {connect: {id:$client}}}){
+        id
+        title
+        client{
+          id
+          name
+          bgColor
+          fgColor
+        }
+      }
+    }`;
+
+    const variables = idea;
+
+    try {
+      const result = await execGraphQl(query, variables);
+      setIdeas((prevIdeas) => {
+        const index = prevIdeas.findIndex((p) => p.id === result.updateIdea.id);
+        prevIdeas[index] = result.updateIdea;
+        const [loading, setLoading] = useLoading;
+        setLoading(false);
+        return prevIdeas;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const deleteIdea = async (id) => {
     const query = `
     mutation($id: ID!){
@@ -174,12 +205,18 @@ const AppProvider = ({ children }) => {
         posts,
         setPosts,
         addNewPost,
+        updatePost,
         deletePost,
+
         ideas,
         setIdeas,
         addNewIdea,
+        updateIdea,
         deleteIdea,
-        updatePost,
+
+        toUpdate,
+        setToUpdate,
+
         useVisible,
         useLoading,
         Actions,

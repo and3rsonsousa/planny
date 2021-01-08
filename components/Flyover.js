@@ -1,26 +1,28 @@
 import { useApp } from "../utility/AppContext";
 
 const Flyover = ({ id, deleteAction, updateAction }) => {
-  const App = useApp();
-  const [loading, setLoading] = App.useLoading;
-  const [visible, setVisible] = App.useLoading;
+  const { useLoading, useVisible, toUpdate, setToUpdate } = useApp();
+  const [loading, setLoading] = useLoading;
+  const [visible, setVisible] = useVisible;
 
   const handleDelete = async (id) => {
     if (window.confirm("Deletar esse item?")) {
       setLoading(1);
       const deletedItem = await deleteAction(id);
-      console.log(deletedItem);
     }
   };
 
-  const handleUpdate = (id) => {
-    console.log("handling update");
-    return false;
+  const handleUpdate = () => {
+    if (!toUpdate) {
+      setToUpdate(id);
+      setVisible(true);
+    }
+    return true;
   };
 
   return (
     <div className="flyover button-group">
-      <button onClick={() => handleUpdate(id)}>
+      <button onClick={handleUpdate}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"

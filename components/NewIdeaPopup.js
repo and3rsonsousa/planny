@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useApp } from "../utility/AppContext";
 import Popup from "./Popup";
 
 const NewIdeaPopup = (props) => {
-  const { addNewIdea } = useApp();
-  function initialState() {
-    return {
-      title: "",
-      client: "",
-    };
-  }
-  const [idea, setIdea] = useState(initialState);
+  const emptyState = {
+    title: "",
+    client: "",
+  };
+  const { ideas, addNewIdea, toUpdate, updateIdea, useLoading } = useApp();
+  const [idea, setIdea] = useState(emptyState);
+  const [loading, setLoading] = useLoading;
+
+  useEffect(() => {
+    if (toUpdate) {
+      const ideaToUpdate = ideas.filter((i) => i.id === toUpdate)[0];
+      setIdea(ideaToUpdate);
+    } else {
+      setIdea(emptyState);
+    }
+  }, [toUpdate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,10 +36,14 @@ const NewIdeaPopup = (props) => {
       return false;
     }
 
-    addNewIdea(idea);
-    setIdea(initialState);
+    setLoading(true);
+    if (toUpdate) {
+      updateIdea(idea);
+    } else {
+      addNewIdea(idea);
+    }
+    setIdea(emptyState);
     return true;
-    //insere
   };
 
   const handleChange = (event) => {
@@ -40,7 +52,7 @@ const NewIdeaPopup = (props) => {
   };
 
   return (
-    <Popup title="Nova Ideia" addNew={doSubmit}>
+    <Popup title="Nova Ideia" Submit={doSubmit}>
       <form onSubmit={handleSubmit}>
         <label>
           <h4>Título</h4>

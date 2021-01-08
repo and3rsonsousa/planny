@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { useApp } from "../utility/AppContext";
 import Flyover from "../components/Flyover";
+import { useEffect } from "react";
 
 const Calendar = ({
   thisMonth,
@@ -18,6 +19,7 @@ const Calendar = ({
 
   let weeks = [];
   let daysToCount = 0;
+
   for (let a = 0; a < weeksInCalendar; a++) {
     weeks[a] = [];
     for (let i = 0; i < 7; i++) {
