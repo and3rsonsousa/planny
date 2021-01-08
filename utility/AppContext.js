@@ -52,10 +52,12 @@ const AppProvider = ({ children }) => {
       const createdPost = result.createPost;
       setPosts(() => {
         const updatedPosts = [...posts, createdPost];
+        const [loading, setLoading] = useLoading;
+
         const sortedPosts = updatedPosts.sort(
           (a, b) => dayjs(b.date) - dayjs(a.date)
         );
-        const [loading, setLoading] = useLoading;
+
         setLoading(false);
         return sortedPosts;
       });
@@ -87,10 +89,15 @@ const AppProvider = ({ children }) => {
       const result = await execGraphQl(query, variables);
       setPosts((prevPosts) => {
         const index = prevPosts.findIndex((p) => p.id === result.updatePost.id);
-        prevPosts[index] = result.updatePost;
         const [loading, setLoading] = useLoading;
+
+        prevPosts[index] = result.updatePost;
+        const sortedPosts = updatedPosts.sort(
+          (a, b) => dayjs(b.date) - dayjs(a.date)
+        );
+
         setLoading(false);
-        return prevPosts;
+        return sortedPosts;
       });
     } catch (error) {
       console.log(error);
