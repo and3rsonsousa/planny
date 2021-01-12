@@ -209,11 +209,12 @@ const Grid = (post) => {
   const [loading, setLoading] = useLoading;
   const { id, title, description, date, done } = post;
 
-  const update = () => {
+  const doneAction = () => {
     setLoading(true);
     const updatedPost = { ...post, done: !post.done };
     updatePost(updatedPost);
   };
+
   return (
     <div className="instagram-grid border flyover-parent">
       <div className="absolute w-full h-full p-2 overflow-hidden text-center">
@@ -222,10 +223,7 @@ const Grid = (post) => {
         </h6>
         <h6 className="font-semibold text-sm leading-4 mb-1 ">{title}</h6>
         <div className="text-xs text-gray-400 ">{description}</div>
-        <div
-          className="absolute bottom-0 right-0 p-1 cursor-pointer"
-          onClick={update}
-        >
+        <div className="absolute bottom-0 right-0 p-1 cursor-pointer">
           {done ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -240,24 +238,11 @@ const Grid = (post) => {
               />
             </svg>
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-6 text-gray-300"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            ""
           )}
         </div>
       </div>
-      <Flyover id={id} deleteAction={deletePost} />
+      <Flyover item={post} deleteAction={deletePost} doneAction={doneAction} />
     </div>
   );
 };

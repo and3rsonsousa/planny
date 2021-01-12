@@ -88,7 +88,7 @@ const Calendar = ({
               <div className="calendar-day-date">{dayjs(i.date).date()}</div>
               <div className="calendar-day-content">
                 {i.posts.map((item, z) => (
-                  <Col {...item} key={z} showActions={showActions} />
+                  <Col item={item} key={z} showActions={showActions} />
                 ))}
               </div>
             </div>
@@ -99,8 +99,11 @@ const Calendar = ({
   );
 };
 
-const Col = ({ id, title, description, action, client, showActions }) => {
-  const { deletePost, updatePost } = useApp();
+const Col = (props) => {
+  const { id, title, description, action, client, done } = props.item;
+  const { showActions } = props;
+  const { deletePost, updatePost, useLoading } = useApp();
+  const [loading, setLoading] = useLoading;
   const classNames = (action) => {
     switch (action) {
       case 1:
@@ -116,6 +119,12 @@ const Col = ({ id, title, description, action, client, showActions }) => {
     }
   };
 
+  const doneAction = () => {
+    setLoading(true);
+    const updatedPost = { ...props.item, done: !props.item.done };
+    updatePost(updatedPost);
+  };
+
   return (
     <div
       className={
@@ -125,14 +134,26 @@ const Col = ({ id, title, description, action, client, showActions }) => {
       }
       style={
         showActions
-          ? {}
-          : { backgroundColor: client.bgColor, color: client.fgColor }
+          ? done
+            ? { opacity: 0.2 }
+            : {}
+          : {
+              backgroundColor: client.bgColor,
+              color: client.fgColor,
+              opacity: done ? 0.2 : 1,
+            }
       }
     >
       <div className={`hidden lg:block text-xs font-medium leading-4 truncate`}>
         {title}
       </div>
-      <Flyover id={id} deleteAction={deletePost} updateAction={updatePost} />
+
+      <Flyover
+        item={props.item}
+        deleteAction={deletePost}
+        updateAction={updatePost}
+        doneAction={doneAction}
+      />
     </div>
   );
 };

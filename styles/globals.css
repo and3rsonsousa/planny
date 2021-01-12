@@ -55,6 +55,10 @@
   @apply py-1 px-4 text-xs tracking-widest;
 }
 
+.button-group button {
+  @apply rounded-none;
+}
+
 .button-group button:first-child {
   @apply rounded-l rounded-r-none;
 }
