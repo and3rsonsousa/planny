@@ -125,7 +125,7 @@ const Col = (props) => {
     updatePost(updatedPost);
   };
 
-  return (
+  return client ? (
     <div
       className={
         showActions
@@ -155,6 +155,8 @@ const Col = (props) => {
         doneAction={doneAction}
       />
     </div>
+  ) : (
+    ""
   );
 };
 
