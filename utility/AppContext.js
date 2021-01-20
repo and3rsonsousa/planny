@@ -43,6 +43,11 @@ const AppProvider = ({ children }) => {
         action
         date
         done
+        client{
+          id
+          bgColor
+          fgColor
+        }
       }
     }`;
     const variables = post;

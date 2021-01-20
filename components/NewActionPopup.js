@@ -12,6 +12,7 @@ const NewActionPopup = (props) => {
     client: props.clients[0].id,
     done: false,
   };
+
   const {
     posts,
     addNewPost,
@@ -22,6 +23,7 @@ const NewActionPopup = (props) => {
   } = useApp();
   const [post, setPost] = useState(emptyState);
   const [loading, setLoading] = useLoading;
+
   useEffect(() => {
     if (toUpdate) {
       const postToUpdate = posts.filter((p) => p.id === toUpdate)[0];
