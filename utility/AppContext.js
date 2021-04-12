@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 const graphcms = new GraphQLClient(
   "https://api-us-east-1.graphcms.com/v2/ckj80c5b1qjor01xpclyienfi/master"
 );
-import { execGraphQl } from "./graphql-data";
+import { execGraphQl } from "./GraphQLData";
 
 const AppContext = createContext();
 
@@ -13,6 +13,7 @@ const AppProvider = ({ children }) => {
   const [ideas, setIdeas] = useState([]);
   const [toUpdate, setToUpdate] = useState(null);
   const useVisible = useState(false);
+  const usePopup = useState("");
   const useLoading = useState(false);
   const Actions = [
     {
@@ -138,6 +139,7 @@ const AppProvider = ({ children }) => {
         title
         client{
           id
+          name
           fgColor
           bgColor
         }
@@ -229,6 +231,7 @@ const AppProvider = ({ children }) => {
         setToUpdate,
 
         useVisible,
+        usePopup,
         useLoading,
         Actions,
       }}

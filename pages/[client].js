@@ -2,21 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
-import { useApp } from "../../utility/AppContext";
-import { getClient } from "../../utility/GraphQLData";
-import LoginWrapper from "../../components/LoginWrapper";
-import Calendar from "../../components/Calendar";
-import Flyover from "../../components/Flyover";
-import Loader from "../../components/Loader";
-import HeaderWrapper from "../../components/HeaderWrapper";
-import Popup from "../../components/Popup";
-import HeaderMenu from "../../components/HeaderMenu";
-import NewActionPopup from "../../components/NewActionPopup";
+import { useApp } from "../utility/AppContext";
+import { getClient } from "../utility/GraphQLData";
+import LoginWrapper from "../components/LoginWrapper";
+import Calendar from "../components/Calendar";
+import Flyover from "../components/Flyover";
+import Loader from "../components/Loader";
+import HeaderWrapper from "../components/HeaderWrapper";
+import Popup from "../components/Popup";
+import HeaderMenu from "../components/HeaderMenu";
+import NewActionPopup from "../components/NewActionPopup";
+import ClientAvatar from "../components/ClientAvatar";
 
 dayjs.locale("pt-br");
 
 export async function getServerSideProps({ params }) {
-  const client = await getClient(params.instagram);
+  const client = await getClient(params.client);
   return {
     props: {
       client,
@@ -38,7 +39,7 @@ const Plan = (props) => {
   return (
     <LoginWrapper>
       <Header />
-      <div className="container mx-auto">
+      <div className="container mx-auto py-8">
         <div className="grid grid-cols-2 lg:grid-cols-3">
           <section className="p-4 col-span-1 prose relative">
             {loading && (
@@ -174,13 +175,7 @@ const HeaderInstagram = ({ Cliente }) => {
   return (
     <header className="flex items-center justify-between mb-4">
       <div className="flex items-center ">
-        <div
-          className="w-12 h-12 bg-cover rounded-full shadow-inner"
-          style={{
-            backgroundImage:
-              "url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhOaaBAY_yOcJXbL4jW0I_Y5sePbzagqN2aA&usqp=CAU)",
-          }}
-        ></div>
+        <ClientAvatar client={Cliente} size="medium" />
         <div className="ml-4">
           <div className="text-xl font-medium">{Cliente.name}</div>
           <div className="text-sm -mt-1 text-gray-400">{Cliente.instagram}</div>

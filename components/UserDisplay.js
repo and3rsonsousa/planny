@@ -5,18 +5,18 @@ export default function UserDisplay() {
   const { user, doLogout } = useContext(AuthContext);
   return user ? (
     <div className="text-right">
-      <h4 className="font-medium text-gray-700">{user.name}</h4>
-      <div className="text-xs text-gray-400">
-        {user.email} (
+      <h4 className="font-medium text-brand-200">
+        {user.name} (
         <a
           href="#"
           onClick={doLogout}
-          className="text-xs tracking-widest font-medium text-gray-500"
+          className="text-xs tracking-widest font-medium text-brand-200"
         >
           SAIR
         </a>
         )
-      </div>
+      </h4>
+      <div className="text-xs text-brand-400">{user.email}</div>
     </div>
   ) : (
     "Não há dados do usuário"

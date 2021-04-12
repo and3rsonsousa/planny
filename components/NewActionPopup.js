@@ -9,7 +9,7 @@ const NewActionPopup = (props) => {
     description: "",
     date: dayjs().format("YYYY-MM-DD"),
     action: 1,
-    client: props.clients[0].id,
+    client: props.clients.length === 1 ? props.clients[0].id : false,
     done: false,
   };
 
@@ -105,6 +105,43 @@ const NewActionPopup = (props) => {
             onChange={handleChange}
           />
         </label>
+
+        {!post.client ? (
+          <label>
+            <h4>Cliente</h4>
+            <select
+              className="form-field"
+              name="client"
+              value={post.client}
+              onChange={handleChange}
+            >
+              {props.clients.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : (
+          ""
+        )}
+
+        {/* <label>
+          <h4>Cliente</h4>
+          <select
+            className="form-field"
+            name="client"
+            value={post.client}
+            onChange={handleChange}
+          >
+            <option value=""></option>
+            {props.clients.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </label> */}
 
         <label>
           <h4>Ação</h4>

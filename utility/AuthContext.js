@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { logUser, getTheUser } from "./graphql-data";
+import { logUser, getTheUser } from "./GraphQLData";
 
 const AuthContext = createContext({
   user: {},

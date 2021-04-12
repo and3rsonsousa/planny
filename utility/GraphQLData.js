@@ -43,14 +43,6 @@ const getTheUser = async (email) => {
 };
 
 const getTheUserFull = async (email) => {
-  /* 
-  Mostrar apenas os posts do mês
-  //
-  (where: {date_gte:"${dayjs()
-  .startOf("M")
-  .format("YYYY-MM-DD")}", date_lte:"${dayjs()
-.endOf("M")
-.format("YYYY-MM-DD")}"}) */
   const { theUsers } = await graphcms.request(
     `query UserData($email: String!){
       theUsers(where:{email: $email}){
@@ -61,6 +53,8 @@ const getTheUserFull = async (email) => {
           id
           name
           instagram
+          bgColor
+          fgColor
           posts{
             id
             title
@@ -70,6 +64,7 @@ const getTheUserFull = async (email) => {
             done
             client{
               id
+              name
               bgColor
               fgColor
             }
@@ -102,6 +97,8 @@ const getClient = async (instagram) => {
         id
         name
         instagram
+        bgColor
+        fgColor
         posts (orderBy: date_DESC) {
             id
             title
@@ -111,6 +108,7 @@ const getClient = async (instagram) => {
             done
             client{
               id
+              name
               bgColor
               fgColor
             }
@@ -141,6 +139,7 @@ const getClients = async () => {
             done
             client{
               id
+              name
               bgColor
               fgColor
             }
@@ -174,41 +173,6 @@ const getPosts = async (clientID) => {
   );
   return posts;
 };
-
-// const updateThePost = async ({
-//   id,
-//   title,
-//   description,
-//   action,
-//   date,
-//   done,
-// }) => {
-//   const result = await graphcms.request(
-//     `mutation($id:ID, $title: String!, $description: String!, $action: Int!, $date: Date!, $done: Boolean!) {
-//         updatePost(where: {id: $id}, data: {title: $title, description: $description, action: $action, date: $date, done: $done}){
-//           id
-//           title
-//           description
-//           action
-//           date
-//           done
-//           client{
-//             bgColor
-//             fgColor
-//           }
-//         }
-//       }`,
-//     {
-//       id,
-//       title,
-//       description,
-//       action,
-//       date,
-//       done,
-//     }
-//   );
-//   return result.updatePost;
-// };
 
 export {
   execGraphQl,

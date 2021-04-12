@@ -28,13 +28,13 @@ const Login = (props) => {
   };
 
   return (
-    <div className="bg-gray-100 p-12 h-screen flex items-center">
+    <div className="bg-gray-200 p-12 h-screen flex items-center">
       <Head>
         <title>Planny</title>
       </Head>
 
-      <div className="mx-auto bg-white p-8 rounded-lg shadow-2xl">
-        <h3 className="mb-0 text-2xl font-medium text-indigo-700">Planny</h3>
+      <div className="mx-auto bg-white p-8 rounded-xl">
+        <h3 className="mb-0 text-2xl font-medium text-brand-700">Planny</h3>
         <form onSubmit={handleSubimt}>
           <div className="prose mt-4 w-80">
             <label>

@@ -3,44 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
-.calendar-grid {
-  @apply grid grid-cols-7 border-b;
+.menu-links .link {
+  @apply text-brand-200 font-semibold text-sm flex items-center mx-3 transition-colors hover:text-white relative focus:outline-none active:outline-none;
 }
 
-.calendar-day {
-  @apply p-2 border-t border-l;
-}
-
-.calendar-day:nth-child(7n + 1) {
-  @apply border-r;
-}
-
-.calendar-week {
-  @apply text-sm font-medium text-center tracking-widest;
-}
-
-.calendar-day-date {
-  @apply text-xs text-gray-400;
-}
-
-.calendar-day.out-of-month {
-  @apply bg-gray-100;
-}
-
-.calendar-day-col {
-  @apply p-2 rounded mt-2;
-}
-
-.calendar-month-button {
-  @apply text-xs tracking-widest uppercase text-gray-400 px-4 cursor-pointer;
-}
+/* Buttons */
 
 .button {
-  @apply py-3 px-8 text-sm font-semibold text-gray-600 bg-white transform transition-all duration-300 hover:bg-gray-100 border rounded-full shadow-lg hover:translate-y-1 hover:shadow-sm;
+  @apply py-3 px-8 text-sm font-semibold text-gray-600 bg-white transform transition-all duration-300 hover:bg-gray-100 border rounded-full;
 }
 
 .button-primary {
-  @apply bg-indigo-600 hover:bg-indigo-500 text-white border-indigo-600;
+  @apply bg-brand-600 hover:bg-brand-700 text-white border-brand-600;
 }
 
 .button-muted {
@@ -67,7 +41,54 @@
   @apply rounded-r rounded-l-none;
 }
 
-.button-group {
+/* Calendar */
+
+.calendar-grid {
+  @apply grid grid-cols-7 border-b;
+}
+
+.calendar-month-button {
+  @apply text-xs tracking-widest uppercase text-gray-400 px-4 cursor-pointer;
+}
+
+.calendar-day {
+  @apply p-2 border-t border-l;
+}
+
+.calendar-day:nth-child(7n + 1) {
+  @apply border-r;
+}
+
+.calendar-week {
+  @apply text-sm font-medium text-center tracking-widest;
+}
+
+.calendar-day-date {
+  @apply text-xs text-gray-400;
+}
+
+.calendar-day.out-of-month {
+  @apply bg-gray-100;
+}
+
+.calendar-day-col {
+  @apply p-2 rounded mt-2;
+}
+
+.popup {
+  @apply p-8 fixed z-50 h-screen w-screen top-0 left-0 flex items-center bg-gray-900 bg-opacity-75;
+}
+
+.popup .popup-content {
+  @apply max-w-md mx-auto bg-white p-8 rounded-lg shadow-2xl prose;
+}
+
+.popup .popup-content hr {
+  @apply my-4;
+}
+
+.form-field {
+  @apply w-full border-gray-200 px-4 py-3 mb-4 mt-2 rounded-lg focus:ring-brand-500 focus:border-brand-500;
 }
 
 .flyover {
@@ -87,85 +108,61 @@
 }
 
 .loader {
-  @apply border-4 border-indigo-200 w-8 h-8 rounded-full animate-spin;
-  border-top-color: theme("colors.indigo.600");
-  border-right-color: theme("colors.indigo.600");
+  @apply border-4 border-brand-200 w-8 h-8 rounded-full animate-spin;
+  border-top-color: theme("colors.brand.600");
+  border-right-color: theme("colors.brand.600");
 }
 
 .bg-postagem-light {
-  @apply bg-purple-100 text-purple-500;
+  @apply bg-postagem-100 text-postagem-500;
 }
 .bg-postagem-light h5 {
-  @apply text-purple-900;
+  @apply text-postagem-900;
 }
 .bg-postagem-dark {
-  @apply bg-purple-500 text-purple-200;
+  @apply bg-postagem-500 text-postagem-200;
 }
 .bg-postagem-dark h5 {
   @apply text-white;
 }
 
 .bg-stories-light {
-  @apply bg-pink-100 text-pink-500;
+  @apply bg-stories-100 text-stories-500;
 }
 .bg-stories-light h5 {
-  @apply text-pink-700;
+  @apply text-stories-700;
 }
 .bg-stories-dark {
-  @apply bg-pink-500 text-pink-200;
+  @apply bg-stories-500 text-stories-200;
 }
 .bg-stories-dark h5 {
   @apply text-white;
 }
 
 .bg-evento-light {
-  @apply bg-yellow-100 text-yellow-500;
+  @apply bg-evento-100 text-evento-500;
 }
 .bg-evento-light h5 {
-  @apply text-yellow-700;
+  @apply text-evento-700;
 }
 .bg-evento-dark {
-  @apply bg-yellow-500 text-yellow-200;
+  @apply bg-evento-500 text-evento-200;
 }
 .bg-evento-dark h5 {
   @apply text-white;
 }
 
 .bg-meeting-light {
-  @apply bg-green-100 text-green-500;
+  @apply bg-meeting-100 text-meeting-500;
 }
 .bg-meeting-light h5 {
-  @apply text-green-700;
+  @apply text-meeting-700;
 }
 .bg-meeting-dark {
-  @apply bg-green-500 text-green-200;
+  @apply bg-meeting-500 text-meeting-200;
 }
 .bg-meeting-dark h5 {
   @apply text-white;
-}
-
-.menu-links .link {
-  @apply text-gray-400 font-semibold text-sm flex items-center mx-3 transition-colors hover:text-indigo-600;
-}
-
-.dashboard-card {
-  @apply prose text-center p-8 bg-gray-50 rounded-2xl;
-}
-
-.popup {
-  @apply p-8 fixed z-50 h-screen w-screen top-0 left-0 flex items-center bg-indigo-900 bg-opacity-20;
-}
-
-.popup .popup-content {
-  @apply max-w-md mx-auto bg-white p-8 rounded-lg shadow-2xl prose;
-}
-
-.popup .popup-content hr {
-  @apply my-4;
-}
-
-.form-field {
-  @apply px-4 py-3 border-2 rounded w-full focus:border-gray-500 mb-4 mt-2;
 }
 
 .instagram-grid::after {

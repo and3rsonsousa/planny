@@ -63,7 +63,7 @@ const Calendar = ({
           <div className="calendar-month-button" onClick={prevMonth}>
             {thisMonth.subtract(1, "M").format("MMMM")}
           </div>
-          <div className="font-medium text-gray-700 px-4">
+          <div className="font-medium text-xl leading-none text-gray-700 px-4">
             {thisMonth.format("MMMM")}
           </div>
           <div className="calendar-month-button" onClick={nextMonth}>

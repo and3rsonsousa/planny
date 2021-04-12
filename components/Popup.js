@@ -8,7 +8,7 @@ const Popup = (props) => {
   const handleClose = () => {
     setVisible(false);
     if (toUpdate) {
-      console.log("tem toUpdate no fechamendo do botão");
+      // console.log("tem toUpdate no fechamendo do botão");
       setToUpdate(null);
     }
   };
@@ -47,6 +47,7 @@ const Popup = (props) => {
                 onChange={(e) => {
                   return !e.target.checked;
                 }}
+                className="border-gray-300 rounded-md w-5 h-5 text-brand-500 focus:ring-brand-300"
               />
               <div className="text-xs text-gray-400 ml-2">
                 Continuar inserindo
