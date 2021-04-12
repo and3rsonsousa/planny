@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import Head from "next/head";
 import { AuthContext } from "../utility/AuthContext";
 import Alert from "../components/Alert";
-import Logo from "../components/Logo";
+import Logo from "../components/Logotype";
 
 function initialState() {
   return { email: "", password: "" };
