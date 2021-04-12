@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import UserDisplay from "../components/UserDisplay";
+import Logo from "../components/Logo";
 
 const HeaderWrapper = ({ children }) => {
   return (
@@ -8,14 +9,11 @@ const HeaderWrapper = ({ children }) => {
       <div className="container mx-auto">
         <header className="p-4 flex justify-between">
           <div>
-            <h3 className="text-2xl font-bold tracking-tighter">
-              <Link href="/">
-                <a>
-                  <span className="text-brand-600">PLAN</span>
-                  <span className="text-pink-500">NY</span>
-                </a>
-              </Link>
-            </h3>
+            <Link href="/">
+              <a>
+                <Logo />
+              </a>
+            </Link>
           </div>
 
           <div className="flex gap-4">

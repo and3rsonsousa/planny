@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import Head from "next/head";
 import { AuthContext } from "../utility/AuthContext";
 import Alert from "../components/Alert";
+import Logo from "../components/Logo";
 
 function initialState() {
   return { email: "", password: "" };
@@ -28,15 +29,15 @@ const Login = (props) => {
   };
 
   return (
-    <div className="bg-white h-screen flex items-center border-brand-600 border-t-4">
+    <div className="bg-brand-700 h-screen flex justify-center items-center">
       <Head>
         <title>Planny</title>
       </Head>
 
-      <div className="w-full mx-auto p-8 rounded-xl">
-        <h3 className="mb-0 text-2xl font-medium text-brand-600">Planny</h3>
+      <div className="p-8 bg-white rounded-lg w-full max-w-md">
+        <Logo />
         <form onSubmit={handleSubmit}>
-          <div className="mt-4 sm:w-80">
+          <div className="mt-4">
             <label>
               <div>E-mail</div>
               <input
