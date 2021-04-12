@@ -78,6 +78,7 @@ const IdeaPopup = (props) => {
             value={idea.client}
             onChange={handleChange}
           >
+            {!toUpdate ? <option value=""></option> : ""}
             {props.clients.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
