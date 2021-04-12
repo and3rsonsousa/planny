@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import UserDisplay from "../components/UserDisplay";
-import Logo from "../components/Logo";
+import Logo from "./Logo";
 
 const HeaderWrapper = ({ children }) => {
   return (
