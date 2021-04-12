@@ -1,20 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import LoginWrapper from "../components/LoginWrapper";
-import HeaderWrapper from "../components/HeaderWrapper";
-import HeaderMenu from "../components/HeaderMenu";
 import { AuthContext } from "../utility/AuthContext";
 import { useApp } from "../utility/AppContext";
 import { getClientsFromUser } from "../utility/GraphQLData";
 import Loader from "../components/Loader";
-import Flyover from "../components/Flyover";
-import NewIdeaPopup from "../components/NewIdeaPopup";
-import ClientAvatar from "../components/ClientAvatar";
-import Layout from "../components/Layout";
+import IdeaPopup from "../components/IdeaPopup";
+import LayoutWrapper from "../components/LayoutWrapper";
+import Idea from "../components/Idea";
 
 const Ideias = (props) => {
   const { user } = useContext(AuthContext);
-  const { ideas, setIdeas, useVisible, deleteIdea } = useApp();
+  const { ideas, setIdeas, useVisible } = useApp();
   const [clients, setClients] = useState(null);
   const [visible, setVisible] = useVisible;
 
@@ -37,7 +34,7 @@ const Ideias = (props) => {
 
   return (
     <LoginWrapper>
-      <Layout>
+      <LayoutWrapper>
         <div>
           <Head>
             <title>Planny</title>
@@ -72,27 +69,15 @@ const Ideias = (props) => {
         </div>
         {ideas && clients ? (
           <div className="py-8 px-4 container mx-auto grid sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
-            {ideas.map((idea) => (
-              <div
-                className="flyover-parent rounded-lg p-4 border flex items-center gap-4"
-                key={idea.id}
-              >
-                <ClientAvatar client={idea.client} size="medium" />
-                <div className="prose">
-                  <div className="text-xx uppercase text-gray-300 tracking-widest -mb-1">
-                    {idea.client.name}
-                  </div>
-                  <div>{idea.title}</div>
-                </div>
-                <Flyover id={idea.id} deleteAction={deleteIdea} />
-              </div>
+            {ideas.map((idea, i) => (
+              <Idea idea={idea} key={i} />
             ))}
-            <NewIdeaPopup clients={clients} />
+            <IdeaPopup clients={clients} />
           </div>
         ) : (
           <Loader />
         )}
-      </Layout>
+      </LayoutWrapper>
     </LoginWrapper>
   );
 };

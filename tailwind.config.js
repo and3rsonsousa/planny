@@ -1,3 +1,4 @@
+const { green } = require("tailwindcss/colors");
 const colors = require("tailwindcss/colors");
 
 module.exports = {
@@ -8,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         brand: colors.blue,
+        success: colors.teal,
         gray: colors.blueGray,
         yellow: colors.yellow,
         rose: colors.rose,
@@ -15,13 +17,16 @@ module.exports = {
         teal: colors.teal,
         cyan: colors.cyan,
         lime: colors.lime,
-        postagem: colors.purple,
+        postagem: colors.pink,
         stories: colors.orange,
         evento: colors.yellow,
         meeting: colors.lime,
       },
       fontSize: {
         xx: ".65em",
+      },
+      fontFamily: {
+        poppins: "Poppins, sans-serif",
       },
     },
   },

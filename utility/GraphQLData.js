@@ -93,27 +93,37 @@ const getClient = async (instagram) => {
   const { clients } = await graphcms.request(
     `
     query ClientData($instagram: String!){
-    clients(where: {instagram: $instagram}){
+      clients(where: {instagram: $instagram}){
         id
         name
         instagram
         bgColor
         fgColor
         posts (orderBy: date_DESC) {
+          id
+          title
+          description
+          date
+          action
+          done
+          client{
             id
-            title
-            description
-            date
-            action
-            done
-            client{
-              id
-              name
-              bgColor
-              fgColor
-            }
+            name
+            bgColor
+            fgColor
+          }
         }
-    }
+        ideas {
+          id
+          title
+          client{
+            id
+            name
+            bgColor
+            fgColor
+          }
+        }
+      }
     }`,
     {
       instagram: instagram,
@@ -144,7 +154,7 @@ const getClients = async () => {
               fgColor
             }
         }
-    }
+      }
     }`
   );
   return clients;

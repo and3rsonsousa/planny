@@ -1,21 +1,29 @@
 import { useApp } from "../utility/AppContext";
 
-const Flyover = ({ item, deleteAction, doneAction }) => {
-  if (!item) return "";
+const Flyover = ({
+  item,
+  triggerDelete,
+  triggerUpdate,
+  triggerDone,
+  popupType,
+}) => {
+  if (!item) return "Sem item";
   const { id } = item;
-  const { useLoading, useVisible, toUpdate, setToUpdate } = useApp();
+  const { useLoading, useVisible, toUpdate, usePopup, setToUpdate } = useApp();
   const [loading, setLoading] = useLoading;
   const [visible, setVisible] = useVisible;
+  const [popup, setPopup] = usePopup;
 
   const handleDelete = async (id) => {
     if (window.confirm("Deletar esse item?")) {
       setLoading(1);
-      const deletedItem = await deleteAction(id);
+      const deletedItem = await triggerDelete(id);
     }
   };
 
-  const handleUpdate = () => {
+  const showUpdateForm = () => {
     if (!toUpdate) {
+      setPopup(popupType);
       setToUpdate(id);
       setVisible(true);
     }
@@ -25,22 +33,26 @@ const Flyover = ({ item, deleteAction, doneAction }) => {
   return (
     <div className="flyover button-group">
       {/* DONE */}
-      <button onClick={doneAction}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="w-3"
-        >
-          <path
-            fillRule="evenodd"
-            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
+      {["action"].find((pp) => pp === popupType) ? (
+        <button onClick={triggerDone}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="w-3"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+      ) : (
+        ""
+      )}
       {/* UPDATE */}
-      <button onClick={handleUpdate}>
+      <button onClick={showUpdateForm}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"

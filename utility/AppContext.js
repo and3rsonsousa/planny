@@ -73,8 +73,8 @@ const AppProvider = ({ children }) => {
   };
 
   const updatePost = async (post) => {
-    const query = `mutation($id:ID, $title: String!, $description: String!, $action: Int!, $date: Date!, $done: Boolean!) {
-      updatePost(where: {id: $id}, data: {title: $title, description: $description, action: $action, date: $date, done: $done}){
+    const query = `mutation($id:ID, $title: String!, $description: String!, $action: Int!, $date: Date!, $done: Boolean!, $client: ID) {
+      updatePost(where: {id: $id}, data: {title: $title, description: $description, action: $action, date: $date, done: $done, client: {connect:  {id: $client}}}){
         id
         title
         description
@@ -83,6 +83,7 @@ const AppProvider = ({ children }) => {
         done
         client{
           id
+          name
           bgColor
           fgColor
         }
@@ -162,8 +163,8 @@ const AppProvider = ({ children }) => {
   };
 
   const updateIdea = async (idea) => {
-    const query = `mutation($id:ID, $title: String!, $client: ID!) {
-      updateIdea(where: {id: $id}, data: {title: $title, client: {connect: {id:$client}}}){
+    const query = `mutation($id:ID, $title: String!, $client:ID) {
+      updateIdea(where: {id: $id}, data: {title: $title, client: {connect: {id:$client }}}){
         id
         title
         client{

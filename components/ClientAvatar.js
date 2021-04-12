@@ -1,4 +1,4 @@
-export default function ({ client, size }) {
+export default function ClientAvatar({ client, size }) {
   return client ? (
     <div>
       <div
@@ -7,12 +7,12 @@ export default function ({ client, size }) {
             ? size === "small"
               ? "w-5 h-5 text-xs"
               : "w-10 h-10 text-base"
-            : "w-16 h-16 text-2xl"
+            : "h-14 w-14 text-2xl"
         } rounded-full bg-gray-300 flex justify-center items-center`}
         style={{ backgroundColor: client.bgColor }}
       >
         <span style={{ color: client.fgColor }}>
-          {client.name.substr(0, 1)}
+          {client.name ? client.name.substr(0, 1) : "P"}
         </span>
       </div>
     </div>

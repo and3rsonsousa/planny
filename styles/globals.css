@@ -3,14 +3,29 @@
 @tailwind components;
 @tailwind utilities;
 
-.menu-links .link {
-  @apply text-brand-200 font-semibold text-sm flex items-center mx-3 transition-colors hover:text-white relative focus:outline-none active:outline-none;
+body {
+  @apply text-gray-400 font-poppins;
 }
 
+.menu-links .link {
+  @apply text-gray-500 font-semibold text-sm flex items-center mx-3 transition-colors hover:text-brand-600 relative focus:outline-none active:outline-none;
+}
+
+.dashboard-card {
+  @apply bg-gray-50 rounded-xl p-8 flex flex-col items-center;
+}
+
+.dashboard-card-title {
+  @apply text-5xl sm:text-8xl text-brand-600 font-extralight;
+}
+
+.dashboard-card-info {
+  @apply uppercase tracking-widest text-gray-400 text-xs;
+}
 /* Buttons */
 
 .button {
-  @apply py-3 px-8 text-sm font-semibold text-gray-600 bg-white transform transition-all duration-300 hover:bg-gray-100 border rounded-full;
+  @apply py-3 px-6 text-sm font-semibold text-gray-500 bg-white transform transition-all duration-300 hover:bg-gray-100 border rounded-full no-underline justify-center inline-flex items-center focus:outline-none focus:ring-4 focus:ring-brand-200;
 }
 
 .button-primary {
@@ -26,7 +41,15 @@
 }
 
 .button-small {
-  @apply py-1 px-4 text-xs tracking-widest;
+  @apply py-2 px-4 text-xs tracking-widest;
+}
+
+.button svg {
+  @apply h-5 inline-block ml-1;
+}
+
+.button.button-small svg {
+  @apply h-4;
 }
 
 .button-group button {
@@ -34,17 +57,17 @@
 }
 
 .button-group button:first-child {
-  @apply rounded-l rounded-r-none;
+  @apply rounded-l-full rounded-r-none;
 }
 
 .button-group button:last-child {
-  @apply rounded-r rounded-l-none;
+  @apply rounded-r-full rounded-l-none;
 }
 
 /* Calendar */
 
 .calendar-grid {
-  @apply grid grid-cols-7 border-b;
+  @apply grid grid-cols-7;
 }
 
 .calendar-month-button {
@@ -52,23 +75,29 @@
 }
 
 .calendar-day {
-  @apply p-2 border-t border-l;
+  /* @apply p-2 border-t border-l; */
+  @apply p-2;
 }
-
-.calendar-day:nth-child(7n + 1) {
-  @apply border-r;
+@screen sm {
+  .calendar-day:not(.calendar-week) {
+    min-height: 120px;
+  }
 }
 
 .calendar-week {
-  @apply text-sm font-medium text-center tracking-widest;
+  @apply text-xx font-semibold tracking-widest text-gray-700  bg-gray-50;
+}
+
+.calendar-week:first-child {
+  @apply rounded-tl-xl;
 }
 
 .calendar-day-date {
   @apply text-xs text-gray-400;
 }
 
-.calendar-day.out-of-month {
-  @apply bg-gray-100;
+.calendar-day.out-of-month .calendar-day-date {
+  @apply text-gray-200;
 }
 
 .calendar-day-col {
@@ -80,7 +109,7 @@
 }
 
 .popup .popup-content {
-  @apply max-w-md mx-auto bg-white p-8 rounded-lg shadow-2xl prose;
+  @apply max-w-lg mx-auto bg-white p-8 rounded-lg shadow-2xl prose;
 }
 
 .popup .popup-content hr {
@@ -88,12 +117,14 @@
 }
 
 .form-field {
-  @apply w-full border-gray-200 px-4 py-3 mb-4 mt-2 rounded-lg focus:ring-brand-500 focus:border-brand-500;
+  @apply w-full border-gray-200 px-4 py-3 mb-4 mt-2 rounded-lg focus:ring-brand-500 focus:border-brand-500 text-gray-500;
 }
 
 .flyover {
-  @apply absolute p-1 invisible flex transition-all top-0 right-0 opacity-0  transform duration-300;
+  @apply absolute opacity-0 invisible p-1 flex transition-all top-0 right-0   transform duration-300;
 }
+
+/*  */
 
 .flyover-parent {
   @apply relative;

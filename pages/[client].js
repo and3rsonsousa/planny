@@ -11,8 +11,9 @@ import Loader from "../components/Loader";
 import HeaderWrapper from "../components/HeaderWrapper";
 import Popup from "../components/Popup";
 import HeaderMenu from "../components/HeaderMenu";
-import NewActionPopup from "../components/NewActionPopup";
+import ActionPopup from "../components/ActionPopup";
 import ClientAvatar from "../components/ClientAvatar";
+import Idea from "../components/Idea";
 
 dayjs.locale("pt-br");
 
@@ -24,12 +25,14 @@ export async function getServerSideProps({ params }) {
     },
   };
 }
-const Plan = (props) => {
+
+const Client = (props) => {
   //
   const App = useApp();
   const [thisMonth, setThisMonth] = useState(dayjs());
-  const [visible] = App.useVisible;
+  const [visible, setVisible] = App.useVisible;
   const [loading] = App.useLoading;
+  const [popup, setPopup] = App.usePopup;
   const { setPosts } = App;
   const client = props.client;
   useEffect(() => {
@@ -38,69 +41,121 @@ const Plan = (props) => {
 
   return (
     <LoginWrapper>
-      <Header />
-      <div className="container mx-auto py-8">
-        <div className="grid grid-cols-2 lg:grid-cols-3">
+      <HeaderWrapper>
+        <Head>
+          <title>Programação de Posts</title>
+        </Head>
+
+        <HeaderMenu />
+      </HeaderWrapper>
+      <div className="container mx-auto">
+        <div className="md:grid grid-cols-2 lg:grid-cols-3">
           <section className="p-4 col-span-1 prose relative">
             {loading && (
               <div className="flex justify-end absolute top-0 right-0">
                 <Loader />
               </div>
             )}
+            <div className="prose mb-4">
+              <h3>Instagram Grid</h3>
+            </div>
             <HeaderInstagram Cliente={client} />
             <InstagramGrid />
           </section>
           <section className="p-4 col-span-1 lg:col-span-2">
+            <div className="flex justify-between mb-8">
+              <div className="prose">
+                <h3>Calendário</h3>
+              </div>
+              <div>
+                <button
+                  className="button button-small button-primary"
+                  onClick={() => {
+                    setPopup("action");
+                    setVisible(true);
+                  }}
+                >
+                  <span>NOVA AÇÃO</span>
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
             <Calendar
               thisMonth={thisMonth}
               showActions={true}
+              legenda={true}
               nextMonth={() => setThisMonth(thisMonth.add(1, "M"))}
               prevMonth={() => setThisMonth(thisMonth.subtract(1, "M"))}
             />
+            <div className="flex justify-between mb-8">
+              <div className="prose">
+                <h3>Ideias</h3>
+              </div>
+              <div>
+                <button
+                  className="button button-small button-primary"
+                  onClick={() => {
+                    setPopup("ideia");
+                    setVisible(true);
+                  }}
+                >
+                  <span>NOVA IDEIA</span>
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3 gap-2">
+              {client.ideas.map((idea, i) => (
+                <Idea idea={idea} truncate={true} key={i} />
+              ))}
+            </div>
           </section>
         </div>
-        <NewActionPopup clients={[client]} />
+        <ActionPopup clients={[client]} />
       </div>
     </LoginWrapper>
   );
 };
 
-export default Plan;
+export default Client;
 
-const Header = () => {
-  const App = useApp();
-  const [visible, setVisible] = App.useVisible;
-  return (
-    <HeaderWrapper>
-      <Head>
-        <title>Programação de Posts</title>
-      </Head>
+// const Header = () => {
+//   const App = useApp();
+//   const [visible, setVisible] = App.useVisible;
+//   return (
+//     <HeaderWrapper>
+//       <Head>
+//         <title>Programação de Posts</title>
+//       </Head>
 
-      <HeaderMenu>
-        <button
-          className="button button-small button-primary ml-4 flex items-center"
-          onClick={() => setVisible(true)}
-        >
-          <span>NOVA AÇÃO</span>
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className=" h-6 inline-block ml-2"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-      </HeaderMenu>
-    </HeaderWrapper>
-  );
-};
+//       <HeaderMenu></HeaderMenu>
+//     </HeaderWrapper>
+//   );
+// };
 
 const NovaAcao = ({ Cliente }) => {
   const App = useApp();

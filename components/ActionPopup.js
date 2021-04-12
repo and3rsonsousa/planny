@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useApp } from "../utility/AppContext";
 import Popup from "./Popup";
 
-const NewActionPopup = (props) => {
+const ActionPopup = (props) => {
   const emptyState = {
     title: "",
     description: "",
@@ -26,7 +26,8 @@ const NewActionPopup = (props) => {
 
   useEffect(() => {
     if (toUpdate) {
-      const postToUpdate = posts.filter((p) => p.id === toUpdate)[0];
+      var postToUpdate = posts.filter((p) => p.id === toUpdate)[0];
+      postToUpdate.client = postToUpdate.client.id;
       setPost(postToUpdate);
     } else {
       setPost(emptyState);
@@ -70,7 +71,7 @@ const NewActionPopup = (props) => {
   };
 
   return post ? (
-    <Popup title="Nova Ação" Submit={doSubmit}>
+    <Popup title={toUpdate ? "Atualizar Ação" : "Nova Ação"} Submit={doSubmit}>
       <form onSubmit={handleSubmit}>
         <label>
           <h4>Título</h4>
@@ -112,6 +113,7 @@ const NewActionPopup = (props) => {
             <select
               className="form-field"
               name="client"
+              id="client"
               value={post.client}
               onChange={handleChange}
             >
@@ -126,23 +128,6 @@ const NewActionPopup = (props) => {
           ""
         )}
 
-        {/* <label>
-          <h4>Cliente</h4>
-          <select
-            className="form-field"
-            name="client"
-            value={post.client}
-            onChange={handleChange}
-          >
-            <option value=""></option>
-            {props.clients.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </label> */}
-
         <label>
           <h4>Ação</h4>
           <div className="flex gap-2">
@@ -154,9 +139,12 @@ const NewActionPopup = (props) => {
                   value={b + 1}
                   checked={post.action == b + 1}
                   onChange={handleChange}
+                  className="border-gray-300"
                 />
 
-                <div className="ml-2">{a.name}</div>
+                <div className={`ml-2 uppercase text-xs tracking-wider`}>
+                  {a.name}
+                </div>
               </label>
             ))}
           </div>
@@ -168,4 +156,4 @@ const NewActionPopup = (props) => {
   );
 };
 
-export default NewActionPopup;
+export default ActionPopup;

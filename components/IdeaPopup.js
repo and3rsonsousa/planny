@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useApp } from "../utility/AppContext";
 import Popup from "./Popup";
 
-const NewIdeaPopup = (props) => {
+const IdeaPopup = (props) => {
   const emptyState = {
     title: "",
     client: "",
@@ -13,7 +13,8 @@ const NewIdeaPopup = (props) => {
 
   useEffect(() => {
     if (toUpdate) {
-      const ideaToUpdate = ideas.filter((i) => i.id === toUpdate)[0];
+      let ideaToUpdate = ideas.filter((i) => i.id === toUpdate)[0];
+      ideaToUpdate.client = ideaToUpdate.client.id;
       setIdea(ideaToUpdate);
     } else {
       setIdea(emptyState);
@@ -52,7 +53,10 @@ const NewIdeaPopup = (props) => {
   };
 
   return (
-    <Popup title="Nova Ideia" Submit={doSubmit}>
+    <Popup
+      title={idea.title ? "Atualizar Ideia" : "Nova Ideia"}
+      Submit={doSubmit}
+    >
       <form onSubmit={handleSubmit}>
         <label>
           <h4>Título</h4>
@@ -70,10 +74,10 @@ const NewIdeaPopup = (props) => {
           <select
             className="form-field"
             name="client"
+            id="client"
             value={idea.client}
             onChange={handleChange}
           >
-            <option value=""></option>
             {props.clients.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
@@ -86,4 +90,4 @@ const NewIdeaPopup = (props) => {
   );
 };
 
-export default NewIdeaPopup;
+export default IdeaPopup;

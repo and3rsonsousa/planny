@@ -38,7 +38,7 @@ const Popup = (props) => {
         </div>
         {props.children}
         <hr />
-        <div className="flex gap-8 items-center">
+        <div className="flex gap-8 items-center justify-between w-full">
           <div>
             <label className="flex items-center">
               <input
@@ -49,12 +49,12 @@ const Popup = (props) => {
                 }}
                 className="border-gray-300 rounded-md w-5 h-5 text-brand-500 focus:ring-brand-300"
               />
-              <div className="text-xs text-gray-400 ml-2">
+              <div className="text-xx tracking-wider uppercase text-gray-400 ml-2">
                 Continuar inserindo
               </div>
             </label>
           </div>
-          <div className="flex justify-end">
+          <div className="flex">
             <button className="button button-muted" onClick={handleClose}>
               CANCELAR
             </button>

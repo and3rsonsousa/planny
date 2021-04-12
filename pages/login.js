@@ -19,7 +19,7 @@ const Login = (props) => {
     });
   };
 
-  const handleSubimt = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     if (user.email !== "" && user.password !== "") {
       doLogin(user);
@@ -28,15 +28,15 @@ const Login = (props) => {
   };
 
   return (
-    <div className="bg-gray-200 p-12 h-screen flex items-center">
+    <div className="bg-white h-screen flex items-center border-brand-600 border-t-4">
       <Head>
         <title>Planny</title>
       </Head>
 
-      <div className="mx-auto bg-white p-8 rounded-xl">
-        <h3 className="mb-0 text-2xl font-medium text-brand-700">Planny</h3>
-        <form onSubmit={handleSubimt}>
-          <div className="prose mt-4 w-80">
+      <div className="w-full mx-auto p-8 rounded-xl">
+        <h3 className="mb-0 text-2xl font-medium text-brand-600">Planny</h3>
+        <form onSubmit={handleSubmit}>
+          <div className="mt-4 sm:w-80">
             <label>
               <div>E-mail</div>
               <input
@@ -44,7 +44,7 @@ const Login = (props) => {
                 id="email"
                 name="email"
                 placeholder="E-mail"
-                className="border-2 p-2 mb-2 w-full rounded-lg"
+                className="form-field"
                 value={user.email}
                 onChange={onChange}
               />
@@ -56,7 +56,7 @@ const Login = (props) => {
                 type="password"
                 id="password"
                 name="password"
-                className="border-2 p-2 mb-2 w-full rounded-lg"
+                className="form-field"
                 value={user.password}
                 onChange={onChange}
               />

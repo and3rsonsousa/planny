@@ -38,17 +38,16 @@ const Calendar = ({
     <div className="calendar">
       {/* Legenda de cores */}
       {legenda && (
-        <div className="mb-8 flex gap-x-4">
+        <div className="flex gap-x-2 justify-center sm:justify-end">
           {Actions.map((i, j) => {
-            let bgColor1 = "bg-" + i.slug + "-light";
-            let bgColor2 = "bg-" + i.slug + "-dark";
+            let bgColor1 = "bg-" + i.slug + "-dark";
+            // let bgColor2 = "bg-" + i.slug + "-light";
 
             return (
               <div
                 className={`flex items-center py-1 px-2 rounded-full ${bgColor1}`}
                 key={j}
               >
-                <div className={`h-2 w-2 rounded-full mr-2 ${bgColor2}`}></div>
                 <div className="text-xx font-semibold uppercase tracking-wider">
                   {i.name}
                 </div>
@@ -119,7 +118,7 @@ const Col = (props) => {
     }
   };
 
-  const doneAction = () => {
+  const doneTrigger = () => {
     setLoading(true);
     const updatedPost = { ...props.item, done: !props.item.done };
     updatePost(updatedPost);
@@ -150,9 +149,10 @@ const Col = (props) => {
 
       <Flyover
         item={props.item}
-        deleteAction={deletePost}
-        updateAction={updatePost}
-        doneAction={doneAction}
+        triggerDelete={deletePost}
+        triggerUpdate={updatePost}
+        triggerDone={doneTrigger}
+        popupType="action"
       />
     </div>
   ) : (
