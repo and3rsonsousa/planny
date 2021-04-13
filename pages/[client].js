@@ -99,7 +99,7 @@ const Client = (props) => {
               nextMonth={() => setThisMonth(thisMonth.add(1, "M"))}
               prevMonth={() => setThisMonth(thisMonth.subtract(1, "M"))}
             />
-            <div className="flex justify-between mb-8">
+            <div className="flex justify-between my-8">
               <div className="prose">
                 <h3>Ideias</h3>
               </div>
