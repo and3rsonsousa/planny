@@ -86,11 +86,15 @@ const Calendar = ({
               key={(a + 1) * (j + 1)}
               className={`calendar-day${
                 i.date.month() != thisMonth.month() ? " out-of-month" : ""
+              }${
+                i.date.format("YYYY-MM-DD") === dayjs().format("YYYY-MM-DD")
+                  ? " today"
+                  : ""
               }`}
               data-date={i.date.format("YYYY-MM-DD")}
             >
               <div className="calendar-day-date">
-                <span>{dayjs(i.date).date()} </span>
+                <span className="day-number">{dayjs(i.date).date()} </span>
                 <div className="button-add-action">
                   <button
                     className="ml-2 button button-circle-small button-dark"

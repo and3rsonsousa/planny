@@ -103,7 +103,11 @@ body {
 } */
 
 .calendar-day-date {
-  @apply text-xs text-gray-400 flex justify-between;
+  @apply text-sm text-gray-400 flex justify-between;
+}
+
+.calendar-day.today .day-number {
+  @apply h-5 w-5 bg-brand-600 text-white flex justify-center items-center rounded-full;
 }
 
 .button-add-action {
