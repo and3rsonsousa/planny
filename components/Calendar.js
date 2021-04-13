@@ -91,16 +91,18 @@ const Calendar = ({
             >
               <div className="calendar-day-date">
                 <span>{dayjs(i.date).date()} </span>
-                <button
-                  className="ml-2 button button-circle-small"
-                  onClick={() => {
-                    setPopup("action");
-                    setVisible(true);
-                    setDate(i.date.format("YYYY-MM-DD"));
-                  }}
-                >
-                  +
-                </button>
+                <div className="button-add-action">
+                  <button
+                    className="ml-2 button button-circle-small button-dark"
+                    onClick={() => {
+                      setPopup("action");
+                      setVisible(true);
+                      setDate(i.date.format("YYYY-MM-DD"));
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
               </div>
               <div className="calendar-day-content">
                 {i.posts.map((item, z) => (

@@ -23,49 +23,51 @@ body {
   @apply uppercase tracking-widest text-gray-400 text-xs;
 }
 /* Buttons */
+@layer components {
+  .button {
+    @apply py-3 px-6 text-sm font-semibold text-gray-500 bg-white transform transition-all duration-300 hover:bg-gray-100 border rounded-full no-underline justify-center inline-flex items-center focus:outline-none focus:ring-4 focus:ring-brand-200;
+  }
 
-.button {
-  @apply py-3 px-6 text-sm font-semibold text-gray-500 bg-white transform transition-all duration-300 hover:bg-gray-100 border rounded-full no-underline justify-center inline-flex items-center focus:outline-none focus:ring-4 focus:ring-brand-200;
-}
+  .button-primary {
+    @apply bg-brand-600 hover:bg-brand-700 text-white border-brand-600;
+    box-shadow: 0px 8px 16px -4px theme("colors.brand.400");
+  }
 
-.button-primary {
-  @apply bg-brand-600 hover:bg-brand-700 text-white border-brand-600;
-}
+  .button-muted {
+    @apply border-transparent shadow-none hover:bg-white hover:text-gray-800 px-0 hover:shadow-none;
+  }
 
-.button-muted {
-  @apply border-transparent shadow-none hover:bg-white hover:text-gray-800 px-0 hover:shadow-none;
-}
+  .button-dark {
+    @apply bg-gray-700 hover:bg-gray-700 text-gray-300 border-gray-700;
+  }
 
-.button-dark {
-  @apply bg-gray-800 hover:bg-gray-700 text-gray-300;
-}
+  .button-small {
+    @apply py-2 px-4 text-xs tracking-widest;
+  }
 
-.button-small {
-  @apply py-2 px-4 text-xs tracking-widest;
-}
+  .button-circle-small {
+    @apply p-0 h-4 w-4 text-sm justify-center items-center flex font-light;
+  }
 
-.button-circle-small {
-  @apply p-0 h-4 w-4 text-xs justify-center items-center flex;
-}
+  .button svg {
+    @apply h-5 inline-block ml-1;
+  }
 
-.button svg {
-  @apply h-5 inline-block ml-1;
-}
+  .button.button-small svg {
+    @apply h-4;
+  }
 
-.button.button-small svg {
-  @apply h-4;
-}
+  .button-group button {
+    @apply rounded-none;
+  }
 
-.button-group button {
-  @apply rounded-none;
-}
+  .button-group button:first-child {
+    @apply rounded-l-full rounded-r-none;
+  }
 
-.button-group button:first-child {
-  @apply rounded-l-full rounded-r-none;
-}
-
-.button-group button:last-child {
-  @apply rounded-r-full rounded-l-none;
+  .button-group button:last-child {
+    @apply rounded-r-full rounded-l-none;
+  }
 }
 
 /* Calendar */
@@ -101,7 +103,15 @@ body {
 } */
 
 .calendar-day-date {
-  @apply text-xs text-gray-400 flex;
+  @apply text-xs text-gray-400 flex justify-between;
+}
+
+.button-add-action {
+  @apply duration-300 transition-all transform translate-x-2 opacity-0;
+}
+
+.calendar-day:hover .button-add-action {
+  @apply opacity-100 translate-x-0;
 }
 
 .calendar-day.out-of-month .calendar-day-date {
