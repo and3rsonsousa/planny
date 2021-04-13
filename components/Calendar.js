@@ -11,7 +11,12 @@ const Calendar = ({
   showActions,
 }) => {
   const App = useApp();
-  const { Actions, posts } = App;
+  const { Actions, posts, date, setDate, usePopup, useVisible } = App;
+
+  const [popup, setPopup] = usePopup;
+  const [visible, setVisible] = useVisible;
+
+  // setDate("2021-04-05");
 
   let startOfCalendar = thisMonth.startOf("month").startOf("week");
   let endOfCalendar = thisMonth.endOf("month").endOf("week");
@@ -41,7 +46,6 @@ const Calendar = ({
         <div className="flex gap-x-2 justify-center sm:justify-end">
           {Actions.map((i, j) => {
             let bgColor1 = "bg-" + i.slug + "-dark";
-            // let bgColor2 = "bg-" + i.slug + "-light";
 
             return (
               <div
@@ -83,8 +87,21 @@ const Calendar = ({
               className={`calendar-day${
                 i.date.month() != thisMonth.month() ? " out-of-month" : ""
               }`}
+              data-date={i.date.format("YYYY-MM-DD")}
             >
-              <div className="calendar-day-date">{dayjs(i.date).date()}</div>
+              <div className="calendar-day-date">
+                <span>{dayjs(i.date).date()} </span>
+                <button
+                  className="ml-2 button button-circle-small"
+                  onClick={() => {
+                    setPopup("action");
+                    setVisible(true);
+                    setDate(i.date.format("YYYY-MM-DD"));
+                  }}
+                >
+                  +
+                </button>
+              </div>
               <div className="calendar-day-content">
                 {i.posts.map((item, z) => (
                   <Col item={item} key={z} showActions={showActions} />

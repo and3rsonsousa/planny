@@ -4,23 +4,25 @@ import { useApp } from "../utility/AppContext";
 import Popup from "./Popup";
 
 const ActionPopup = (props) => {
-  const emptyState = {
-    title: "",
-    description: "",
-    date: dayjs().format("YYYY-MM-DD"),
-    action: 1,
-    client: props.clients.length === 1 ? props.clients[0].id : false,
-    done: false,
-  };
-
   const {
     posts,
     addNewPost,
+    date,
     Actions,
     toUpdate,
     updatePost,
     useLoading,
   } = useApp();
+
+  const emptyState = {
+    title: "",
+    description: "",
+    date: date,
+    action: 1,
+    client: props.clients.length === 1 ? props.clients[0].id : false,
+    done: false,
+  };
+
   const [post, setPost] = useState(emptyState);
   const [loading, setLoading] = useLoading;
 
@@ -33,6 +35,13 @@ const ActionPopup = (props) => {
       setPost(emptyState);
     }
   }, [toUpdate]);
+
+  useEffect(() => {
+    let postWithCurrentDate = { ...post };
+    postWithCurrentDate.date = date;
+    // console.log(date, postWithCurrentDate);
+    setPost(postWithCurrentDate);
+  }, [date]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -95,6 +104,7 @@ const ActionPopup = (props) => {
             onChange={handleChange}
           />
         </label>
+
         <label>
           <h4>Data</h4>
           <input

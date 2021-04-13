@@ -11,6 +11,7 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [ideas, setIdeas] = useState([]);
+  const [date, setDate] = useState(dayjs().format("YYYY-MM-DD"));
   const [toUpdate, setToUpdate] = useState(null);
   const useVisible = useState(false);
   const usePopup = useState("");
@@ -226,6 +227,8 @@ const AppProvider = ({ children }) => {
         addNewIdea,
         updateIdea,
         deleteIdea,
+        date,
+        setDate,
 
         toUpdate,
         setToUpdate,

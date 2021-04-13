@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
@@ -8,9 +8,7 @@ import LoginWrapper from "../components/LoginWrapper";
 import Calendar from "../components/Calendar";
 import Flyover from "../components/Flyover";
 import Loader from "../components/Loader";
-import HeaderWrapper from "../components/HeaderWrapper";
 import Popup from "../components/Popup";
-import HeaderMenu from "../components/HeaderMenu";
 import ActionPopup from "../components/ActionPopup";
 import ClientAvatar from "../components/ClientAvatar";
 import Idea from "../components/Idea";
@@ -34,6 +32,7 @@ const Client = (props) => {
   const [thisMonth, setThisMonth] = useState(dayjs());
   const [visible, setVisible] = App.useVisible;
   const { ideas } = App;
+  const { date, setDate } = App;
   const [loading] = App.useLoading;
   const [popup, setPopup] = App.usePopup;
   const { setPosts } = App;

@@ -1,14 +1,15 @@
 import React from "react";
 import { useApp } from "../utility/AppContext";
+import dayjs from "dayjs";
 
 const Popup = (props) => {
-  const { useVisible, setToUpdate, toUpdate } = useApp();
+  const { useVisible, setToUpdate, toUpdate, setDate } = useApp();
   const [visible, setVisible] = useVisible;
 
   const handleClose = () => {
     setVisible(false);
+    setDate(dayjs().format("YYYY-MM-DD"));
     if (toUpdate) {
-      // console.log("tem toUpdate no fechamendo do botão");
       setToUpdate(null);
     }
   };
@@ -62,6 +63,7 @@ const Popup = (props) => {
               className="ml-4 button button-primary"
               onClick={() => {
                 props.Submit();
+                setDate(dayjs().format("YYYY-MM-DD"));
                 if (toUpdate) {
                   setToUpdate(null);
                 }
