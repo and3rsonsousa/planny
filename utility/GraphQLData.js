@@ -189,7 +189,6 @@ export {
   getClients,
   getClient,
   getPosts,
-  // updateThePost,
   graphcms,
   logUser,
   getTheUser,

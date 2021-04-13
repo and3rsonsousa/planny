@@ -63,7 +63,6 @@ const AppProvider = ({ children }) => {
         const sortedPosts = updatedPosts.sort(
           (a, b) => dayjs(b.date) - dayjs(a.date)
         );
-
         setLoading(false);
         return sortedPosts;
       });

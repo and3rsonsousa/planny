@@ -5,7 +5,7 @@ import Popup from "./Popup";
 const IdeaPopup = (props) => {
   const emptyState = {
     title: "",
-    client: "",
+    client: props.clients.length === 1 ? props.clients[0].id : false,
   };
   const { ideas, addNewIdea, toUpdate, updateIdea, useLoading } = useApp();
   const [idea, setIdea] = useState(emptyState);
@@ -69,23 +69,27 @@ const IdeaPopup = (props) => {
             onChange={handleChange}
           />
         </label>
-        <label>
-          <h4>Cliente</h4>
-          <select
-            className="form-field"
-            name="client"
-            id="client"
-            value={idea.client}
-            onChange={handleChange}
-          >
-            {!toUpdate ? <option value=""></option> : ""}
-            {props.clients.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </label>
+        {props.clients.length > 1 ? (
+          <label>
+            <h4>Cliente</h4>
+            <select
+              className="form-field"
+              name="client"
+              id="client"
+              value={idea.client}
+              onChange={handleChange}
+            >
+              {!toUpdate ? <option value=""></option> : ""}
+              {props.clients.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : (
+          ""
+        )}
       </form>
     </Popup>
   );

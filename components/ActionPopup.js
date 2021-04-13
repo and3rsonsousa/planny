@@ -107,7 +107,7 @@ const ActionPopup = (props) => {
           />
         </label>
 
-        {!post.client ? (
+        {props.clients.length > 1 ? (
           <label>
             <h4>Cliente</h4>
             <select

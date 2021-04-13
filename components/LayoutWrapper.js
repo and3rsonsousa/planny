@@ -8,6 +8,12 @@ export default function LayoutWrapper({ children }) {
         <HeaderMenu />
       </HeaderWrapper>
       {children}
+      <div className="bg-pink-500">
+        <div className="container mx-auto p-8 text-pink-200 text-sm">
+          © {new Date().getFullYear()}{" "}
+          <span className="tracking-wider">ᴄαɴɪᴠeᴛe</span>
+        </div>
+      </div>
     </div>
   );
 }
