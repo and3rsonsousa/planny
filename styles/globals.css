@@ -67,7 +67,7 @@ body {
 /* Calendar */
 
 .calendar-grid {
-  @apply grid grid-cols-7;
+  @apply grid grid-cols-7 border-gray-200 border rounded-lg mt-4;
 }
 
 .calendar-month-button {
@@ -75,9 +75,13 @@ body {
 }
 
 .calendar-day {
-  /* @apply p-2 border-t border-l; */
-  @apply p-2;
+  @apply p-2 border-t border-l;
+  /* @apply p-2; */
 }
+.calendar-day:nth-child(7n - 5) {
+  @apply border-l-0;
+}
+
 @screen sm {
   .calendar-day:not(.calendar-week) {
     min-height: 120px;
@@ -87,10 +91,10 @@ body {
 .calendar-week {
   @apply text-xx font-semibold tracking-widest text-gray-700  bg-gray-50;
 }
-
+/* 
 .calendar-week:first-child {
   @apply rounded-tl-xl;
-}
+} */
 
 .calendar-day-date {
   @apply text-xs text-gray-400;
