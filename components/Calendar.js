@@ -164,7 +164,9 @@ const Col = (props) => {
             }
       }
     >
-      <div className={`hidden sm:block text-xs font-medium leading-4 truncate`}>
+      <div
+        className={`hidden sm:block sm:text-xx lg:text-xs font-medium leading-4 truncate`}
+      >
         {title}
       </div>
 
