@@ -165,6 +165,8 @@ const Home = () => {
                     </div>
                     <Calendar
                       thisMonth={thisMonth}
+                      showActions={true}
+                      showClientsAvatar={true}
                       nextMonth={() => setThisMonth(thisMonth.add(1, "M"))}
                       prevMonth={() => setThisMonth(thisMonth.subtract(1, "M"))}
                     />
