@@ -164,7 +164,7 @@ const Col = (props) => {
             }
       }
     >
-      <div className={`hidden lg:block text-xs font-medium leading-4 truncate`}>
+      <div className={`hidden md:block text-xs font-medium leading-4 truncate`}>
         {title}
       </div>
 
