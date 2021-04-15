@@ -30,7 +30,7 @@ body {
 
   .button-primary {
     @apply bg-brand-600 hover:bg-brand-700 text-white border-brand-600;
-    box-shadow: 0px 8px 16px -4px theme("colors.brand.400");
+    box-shadow: 0px 4px 12px -2px theme("colors.brand.300");
   }
 
   .button-muted {
@@ -97,10 +97,6 @@ body {
 .calendar-week {
   @apply text-xx font-semibold tracking-widest text-gray-700  bg-gray-50;
 }
-/* 
-.calendar-week:first-child {
-  @apply rounded-tl-xl;
-} */
 
 .calendar-day-date {
   @apply text-sm text-gray-400 flex justify-between;
@@ -131,7 +127,8 @@ body {
 }
 
 .popup .popup-content {
-  @apply max-w-lg mx-auto bg-white p-8 rounded-lg shadow-2xl prose;
+  @apply max-w-lg mx-auto bg-white p-8 rounded-lg shadow-2xl prose overflow-y-scroll my-8;
+  max-height: 90vh;
 }
 
 .popup .popup-content hr {

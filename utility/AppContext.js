@@ -47,12 +47,13 @@ const AppProvider = ({ children }) => {
         done
         client{
           id
+          name
           bgColor
           fgColor
         }
       }
     }`;
-    const variables = post;
+    const variables = { ...post, client: post.clientID };
 
     try {
       const result = await execGraphQl(query, variables);
@@ -73,6 +74,7 @@ const AppProvider = ({ children }) => {
   };
 
   const updatePost = async (post) => {
+    let variables = { ...post, client: post.clientID };
     const query = `mutation($id:ID, $title: String!, $description: String!, $action: Int!, $date: Date!, $done: Boolean!, $client: ID) {
       updatePost(where: {id: $id}, data: {title: $title, description: $description, action: $action, date: $date, done: $done, client: {connect:  {id: $client}}}){
         id
@@ -89,8 +91,6 @@ const AppProvider = ({ children }) => {
         }
       }
     }`;
-
-    const variables = post;
 
     try {
       const result = await execGraphQl(query, variables);
@@ -163,6 +163,7 @@ const AppProvider = ({ children }) => {
   };
 
   const updateIdea = async (idea) => {
+    let variables = { ...idea, client: idea.client.id };
     const query = `mutation($id:ID, $title: String!, $client:ID) {
       updateIdea(where: {id: $id}, data: {title: $title, client: {connect: {id:$client }}}){
         id
@@ -175,8 +176,6 @@ const AppProvider = ({ children }) => {
         }
       }
     }`;
-
-    const variables = idea;
 
     try {
       const result = await execGraphQl(query, variables);

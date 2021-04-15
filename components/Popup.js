@@ -10,6 +10,7 @@ const Popup = (props) => {
     setVisible(false);
     setDate(dayjs().format("YYYY-MM-DD"));
     if (toUpdate) {
+      // console.log("HERE");
       setToUpdate(null);
     }
   };

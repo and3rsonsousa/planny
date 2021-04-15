@@ -19,7 +19,8 @@ const ActionPopup = (props) => {
     description: "",
     date: date,
     action: 1,
-    client: props.clients.length === 1 ? props.clients[0].id : false,
+    client: props.clients.length === 1 ? props.clients[0] : {},
+    clientID: props.clients.length === 1 ? props.clients[0].id : "",
     done: false,
   };
 
@@ -29,7 +30,7 @@ const ActionPopup = (props) => {
   useEffect(() => {
     if (toUpdate) {
       var postToUpdate = posts.filter((p) => p.id === toUpdate)[0];
-      postToUpdate.client = postToUpdate.client.id;
+      postToUpdate.clientID = postToUpdate.client.id;
       setPost(postToUpdate);
     } else {
       setPost(emptyState);
@@ -37,10 +38,11 @@ const ActionPopup = (props) => {
   }, [toUpdate]);
 
   useEffect(() => {
-    let postWithCurrentDate = { ...post };
-    postWithCurrentDate.date = date;
-    // console.log(date, postWithCurrentDate);
-    setPost(postWithCurrentDate);
+    if (!toUpdate) {
+      let postWithCurrentDate = { ...post };
+      postWithCurrentDate.date = date;
+      setPost(postWithCurrentDate);
+    }
   }, [date]);
 
   const handleSubmit = (event) => {
@@ -79,6 +81,8 @@ const ActionPopup = (props) => {
     setPost({ ...post, [name]: name === "action" ? parseInt(value) : value });
   };
 
+  // console.log(post);
+
   return post ? (
     <Popup title={toUpdate ? "Atualizar Ação" : "Nova Ação"} Submit={doSubmit}>
       <form onSubmit={handleSubmit}>
@@ -116,15 +120,18 @@ const ActionPopup = (props) => {
             onChange={handleChange}
           />
         </label>
+        {/* <div className="bg-gray-100 p-4 rounded break-words">
+          {JSON.stringify(post)}
+        </div> */}
 
         {props.clients.length > 1 ? (
           <label>
             <h4>Cliente</h4>
             <select
               className="form-field"
-              name="client"
-              id="client"
-              value={post.client}
+              name="clientID"
+              id="clientID"
+              value={post.clientID}
               onChange={handleChange}
             >
               {!toUpdate ? <option value=""></option> : ""}

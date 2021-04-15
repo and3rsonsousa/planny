@@ -9,7 +9,7 @@ const Flyover = ({
 }) => {
   if (!item) return "Sem item";
   const { id } = item;
-  const { useLoading, useVisible, toUpdate, usePopup, setToUpdate } = useApp();
+  const { useLoading, useVisible, toUpdate, setToUpdate, usePopup } = useApp();
   const [loading, setLoading] = useLoading;
   const [visible, setVisible] = useVisible;
   const [popup, setPopup] = usePopup;
@@ -24,7 +24,7 @@ const Flyover = ({
   const showUpdateForm = () => {
     if (!toUpdate) {
       setPopup(popupType);
-      setToUpdate(id);
+      setToUpdate(() => id);
       setVisible(true);
     }
     return true;

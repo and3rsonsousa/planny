@@ -249,7 +249,7 @@ const Grid = (post) => {
   const [loading, setLoading] = useLoading;
   const { id, title, description, date, done } = post;
 
-  const doneAction = () => {
+  const triggerDone = () => {
     setLoading(true);
     const updatedPost = { ...post, done: !post.done };
     updatePost(updatedPost);
@@ -282,7 +282,13 @@ const Grid = (post) => {
           )}
         </div>
       </div>
-      <Flyover item={post} deleteAction={deletePost} doneAction={doneAction} />
+      <Flyover
+        item={post}
+        popupType="action"
+        triggerDelete={deletePost}
+        triggerUpdate={updatePost}
+        triggerDone={triggerDone}
+      />
     </div>
   );
 };

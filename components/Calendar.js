@@ -11,12 +11,10 @@ const Calendar = ({
   showActions,
 }) => {
   const App = useApp();
-  const { Actions, posts, date, setDate, usePopup, useVisible } = App;
+  const { Actions, posts, setDate, usePopup, useVisible } = App;
 
   const [popup, setPopup] = usePopup;
   const [visible, setVisible] = useVisible;
-
-  // setDate("2021-04-05");
 
   let startOfCalendar = thisMonth.startOf("month").startOf("week");
   let endOfCalendar = thisMonth.endOf("month").endOf("week");
@@ -141,7 +139,7 @@ const Col = (props) => {
     }
   };
 
-  const doneTrigger = () => {
+  const triggerDone = () => {
     setLoading(true);
     const updatedPost = { ...props.item, done: !props.item.done };
     updatePost(updatedPost);
@@ -174,7 +172,7 @@ const Col = (props) => {
         item={props.item}
         triggerDelete={deletePost}
         triggerUpdate={updatePost}
-        triggerDone={doneTrigger}
+        triggerDone={triggerDone}
         popupType="action"
       />
     </div>
