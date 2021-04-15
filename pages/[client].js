@@ -31,8 +31,6 @@ const Client = (props) => {
   const App = useApp();
   const [thisMonth, setThisMonth] = useState(dayjs());
   const [visible, setVisible] = App.useVisible;
-  const { ideas } = App;
-  const { date, setDate } = App;
   const [loading] = App.useLoading;
   const [popup, setPopup] = App.usePopup;
   const { setPosts } = App;
@@ -128,7 +126,7 @@ const Client = (props) => {
                 </div>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3 gap-2">
-                {ideas.map((idea, i) => (
+                {client.ideas.map((idea, i) => (
                   <Idea idea={idea} truncate={true} key={i} />
                 ))}
               </div>

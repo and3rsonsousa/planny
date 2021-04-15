@@ -3,18 +3,19 @@ import { useApp } from "../utility/AppContext";
 import Popup from "./Popup";
 
 const IdeaPopup = (props) => {
+  const { ideas, addNewIdea, toUpdate, updateIdea, useLoading } = useApp();
   const emptyState = {
     title: "",
-    client: props.clients.length === 1 ? props.clients[0].id : false,
+    client: props.clients.length === 1 ? props.clients[0] : {},
+    clientID: props.clients.length === 1 ? props.clients[0].id : "",
   };
-  const { ideas, addNewIdea, toUpdate, updateIdea, useLoading } = useApp();
   const [idea, setIdea] = useState(emptyState);
   const [loading, setLoading] = useLoading;
 
   useEffect(() => {
     if (toUpdate) {
       let ideaToUpdate = ideas.filter((i) => i.id === toUpdate)[0];
-      ideaToUpdate.client = ideaToUpdate.client.id;
+      ideaToUpdate.clientID = ideaToUpdate.client.id;
       setIdea(ideaToUpdate);
     } else {
       setIdea(emptyState);
@@ -32,7 +33,7 @@ const IdeaPopup = (props) => {
       return false;
     }
 
-    if (idea.client === "") {
+    if (idea.clientID === "") {
       alert("O campo 'Cliente' não pode ficar vazio.");
       return false;
     }
@@ -54,7 +55,7 @@ const IdeaPopup = (props) => {
 
   return (
     <Popup
-      title={idea.title ? "Atualizar Ideia" : "Nova Ideia"}
+      title={toUpdate ? "Atualizar Ideia" : "Nova Ideia"}
       Submit={doSubmit}
     >
       <form onSubmit={handleSubmit}>
@@ -74,9 +75,9 @@ const IdeaPopup = (props) => {
             <h4>Cliente</h4>
             <select
               className="form-field"
-              name="client"
-              id="client"
-              value={idea.client}
+              name="clientID"
+              id="clientID"
+              value={idea.clientID}
               onChange={handleChange}
             >
               {!toUpdate ? <option value=""></option> : ""}

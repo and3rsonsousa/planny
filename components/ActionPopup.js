@@ -64,6 +64,10 @@ const ActionPopup = (props) => {
       alert("Você precisa escolher uma das ações disponíveis.");
       return false;
     }
+    if (post.clientID === "") {
+      alert("Você precisa escolher um dos clientes disponíveis.");
+      return false;
+    }
 
     setLoading(true);
     if (toUpdate) {
@@ -71,7 +75,6 @@ const ActionPopup = (props) => {
     } else {
       addNewPost(post);
     }
-
     setPost(emptyState);
     return true;
   };
@@ -81,9 +84,7 @@ const ActionPopup = (props) => {
     setPost({ ...post, [name]: name === "action" ? parseInt(value) : value });
   };
 
-  // console.log(post);
-
-  return post ? (
+  return (
     <Popup title={toUpdate ? "Atualizar Ação" : "Nova Ação"} Submit={doSubmit}>
       <form onSubmit={handleSubmit}>
         <label>
@@ -169,8 +170,6 @@ const ActionPopup = (props) => {
         </label>
       </form>
     </Popup>
-  ) : (
-    ""
   );
 };
 

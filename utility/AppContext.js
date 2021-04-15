@@ -146,7 +146,7 @@ const AppProvider = ({ children }) => {
         }
       }
     }`;
-    const variables = idea;
+    const variables = { ...idea, client: idea.clientID };
 
     try {
       const result = await execGraphQl(query, variables);
@@ -163,7 +163,7 @@ const AppProvider = ({ children }) => {
   };
 
   const updateIdea = async (idea) => {
-    let variables = { ...idea, client: idea.client.id };
+    let variables = { ...idea, client: idea.clientID };
     const query = `mutation($id:ID, $title: String!, $client:ID) {
       updateIdea(where: {id: $id}, data: {title: $title, client: {connect: {id:$client }}}){
         id
