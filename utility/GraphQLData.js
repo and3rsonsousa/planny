@@ -69,7 +69,7 @@ const getTheUserFull = async (email) => {
               fgColor
             }
           }
-          ideas{
+          ideas(orderBy: updatedAt_DESC){
             id
             title
             client{
