@@ -260,7 +260,7 @@ const Grid = ({ post, classNames }) => {
     const updatedPost = {
       ...post,
       done: !post.done,
-      clientID: props.item.client.id,
+      clientID: post.client.id,
     };
 
     updatePost(updatedPost);
