@@ -233,7 +233,7 @@ const InstagramGrid = () => {
   const { posts } = App;
   const postsToDisplay = posts.filter((i) => i.action == 1);
   return (
-    <div className="grid grid-cols-3 border bg-white rounded-lg">
+    <div className="grid grid-cols-3 shadow-sm bg-white rounded-lg">
       {postsToDisplay.map((i, j) => (
         <Grid
           key={j}
