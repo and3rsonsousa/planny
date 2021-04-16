@@ -257,7 +257,12 @@ const Grid = ({ post, classNames }) => {
 
   const triggerDone = () => {
     setLoading(true);
-    const updatedPost = { ...post, done: !post.done };
+    const updatedPost = {
+      ...post,
+      done: !post.done,
+      clientID: props.item.client.id,
+    };
+
     updatePost(updatedPost);
   };
 
