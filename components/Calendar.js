@@ -149,7 +149,11 @@ const Col = (props) => {
 
   const triggerDone = () => {
     setLoading(true);
-    const updatedPost = { ...props.item, done: !props.item.done };
+    const updatedPost = {
+      ...props.item,
+      done: !props.item.done,
+      clientID: props.item.client.id,
+    };
     updatePost(updatedPost);
   };
 

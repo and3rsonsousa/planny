@@ -175,7 +175,12 @@ const Home = () => {
                   {/* ideias */}
                   <div>
                     <div className="prose mb-4">
-                      <h3>Ideias</h3>
+                      <h3>
+                        Ideias{" "}
+                        <span class="text-sm text-gray-500">
+                          ({ideas.length})
+                        </span>
+                      </h3>
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-2">
@@ -208,11 +213,21 @@ const Home = () => {
 
 const ClientsBar = ({ clients }) => (
   <div className="ClientsBar py-8 w-full overflow-x-auto ">
-    <div className="flex px-4 w-full sm:justify-center lg:justify-start">
+    <div className="flex px-2 w-full sm:justify-center lg:justify-start">
       {clients.map((client, j) => (
         <div
           key={j}
-          className="hover:cursor-pointer transform transition-transform duration-300 hover:-translate-y-2 w-20 pr-4"
+          className="transform 
+          transition-all 
+          duration-500 
+          w-24 
+          p-4
+          mr-2 
+          rounded-lg
+          hover:cursor-pointer 
+          hover:-translate-y-1 
+          hover:shadow-lg
+          hover:bg-white "
         >
           <Link href={`/${client.instagram}`} key={client.instagram}>
             <div className="flex flex-col items-center">

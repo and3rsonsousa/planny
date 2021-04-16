@@ -12,7 +12,7 @@ body {
 }
 
 .dashboard-card {
-  @apply bg-gray-50 rounded-xl p-8 flex flex-col items-center;
+  @apply bg-white rounded-xl p-8 flex flex-col items-center  shadow-sm transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-1;
 }
 
 .dashboard-card-title {
@@ -25,7 +25,7 @@ body {
 /* Buttons */
 @layer components {
   .button {
-    @apply py-3 px-6 text-sm font-semibold text-gray-500 bg-white transform transition-all duration-300 hover:bg-gray-100 border rounded-full no-underline justify-center inline-flex items-center focus:outline-none focus:ring-4 focus:ring-brand-200;
+    @apply py-3 px-6 text-sm font-semibold text-gray-500 bg-white shadow-sm transform transition-all duration-300 hover:bg-gray-50 border rounded-full no-underline justify-center inline-flex items-center focus:outline-none focus:ring-4 focus:ring-brand-200;
   }
 
   .button-primary {
@@ -34,7 +34,7 @@ body {
   }
 
   .button-muted {
-    @apply border-transparent shadow-none hover:bg-white hover:text-gray-800 px-0 hover:shadow-none;
+    @apply border-transparent bg-transparent shadow-none hover:text-gray-800 hover:shadow-none hover:bg-transparent;
   }
 
   .button-dark {
@@ -73,7 +73,7 @@ body {
 /* Calendar */
 
 .calendar-grid {
-  @apply grid grid-cols-7 border-gray-200 border rounded-lg mt-4;
+  @apply grid grid-cols-7  bg-white rounded-lg mt-4 shadow-sm;
 }
 
 .calendar-month-button {
@@ -81,7 +81,7 @@ body {
 }
 
 .calendar-day {
-  @apply p-2 border-t border-l;
+  @apply p-2 border-t border-l lg:p-4;
   /* @apply p-2; */
 }
 .calendar-day:nth-child(7n - 5) {
@@ -95,15 +95,15 @@ body {
 }
 
 .calendar-week {
-  @apply text-xx font-semibold tracking-widest text-gray-700  bg-gray-50;
+  @apply text-xx font-semibold tracking-widest text-gray-700 border-l-0;
 }
 
 .calendar-day-date {
-  @apply text-sm text-gray-400 flex justify-between;
+  @apply text-sm text-gray-700 flex justify-between font-semibold;
 }
 
 .calendar-day.today .day-number {
-  @apply h-5 w-5 bg-brand-600 text-white flex justify-center items-center rounded-full;
+  @apply h-6 w-6 -ml-1 -mt-1 bg-brand-600 text-white flex justify-center items-center rounded-full;
 }
 
 .button-add-action {
@@ -119,7 +119,7 @@ body {
 }
 
 .calendar-day-col {
-  @apply p-1 rounded mt-1  lg:p-2 lg:mt-2;
+  @apply p-1 rounded mt-1  lg:p-2 lg:mt-2 bg-white shadow-md transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
 }
 
 .popup {
@@ -140,7 +140,7 @@ body {
 }
 
 .flyover {
-  @apply absolute opacity-0 invisible p-1 flex transition-all top-0 right-0   transform duration-300;
+  @apply absolute opacity-0 invisible p-1 flex transition-all top-0 right-0 transform duration-300;
 }
 
 /*  */
@@ -150,7 +150,7 @@ body {
 }
 
 .flyover-parent:hover .flyover {
-  @apply lg:flex opacity-100 visible -translate-y-2;
+  @apply lg:flex opacity-100 visible -translate-y-4;
 }
 
 .flyover.button-group button {

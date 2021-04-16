@@ -8,7 +8,7 @@ export default function Idea({ idea, truncate }) {
 
   return (
     <div
-      className="p-4 bg-gray-50 rounded-lg text-gray-500 text-sm relative flex flyover-parent"
+      className="p-4 bg-white rounded-lg shadow-sm text-gray-500 text-sm relative flex flyover-parent transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
       key={idea.id}
     >
       <div>

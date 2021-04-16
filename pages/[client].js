@@ -231,18 +231,26 @@ const HeaderInstagram = ({ Cliente }) => {
 const InstagramGrid = () => {
   const App = useApp();
   const { posts } = App;
+  const postsToDisplay = posts.filter((i) => i.action == 1);
   return (
-    <div className="grid grid-cols-3 gap-1">
-      {posts
-        .filter((i) => i.action == 1)
-        .map((i, j) => (
-          <Grid key={j} {...i} />
-        ))}
+    <div className="grid grid-cols-3 border bg-white rounded-lg">
+      {postsToDisplay.map((i, j) => (
+        <Grid
+          key={j}
+          post={i}
+          classNames={
+            ((j + 1) % 3 !== 0 ? " border-r" : "") +
+            (j < postsToDisplay.length - (postsToDisplay.length % 3)
+              ? " border-b"
+              : "")
+          }
+        />
+      ))}
     </div>
   );
 };
 
-const Grid = (post) => {
+const Grid = ({ post, classNames }) => {
   const { useLoading, updatePost, deletePost } = useApp();
   const [loading, setLoading] = useLoading;
   const { id, title, description, date, done } = post;
@@ -254,13 +262,15 @@ const Grid = (post) => {
   };
 
   return (
-    <div className="instagram-grid border flyover-parent">
+    <div className={`instagram-grid flyover-parent ${classNames}`}>
       <div className="absolute w-full h-full p-2 overflow-hidden text-center">
-        <h6 className="text-xx tracking-widest text-gray-400 my-2">
+        <h6 className="text-xx tracking-widest text-gray-400 my-1">
           {dayjs(date).format("D/M/YYYY")}
         </h6>
-        <h6 className="font-semibold text-sm leading-4 mb-1 ">{title}</h6>
-        <div className="text-xs text-gray-400 ">{description}</div>
+        <h6 className="font-semibold text-xs leading-4 mb-1 ">{title}</h6>
+        <div className="text-xx leading-tight font-light text-gray-400 ">
+          {description}
+        </div>
         <div className="absolute bottom-0 right-0 p-1 cursor-pointer">
           {done ? (
             <svg
