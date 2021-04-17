@@ -178,7 +178,7 @@ const Col = (props) => {
     >
       <div className="flex items-center gap-2">
         {showClientsAvatar ? (
-          <div className="-ml-4">
+          <div className="sm:-ml-4">
             <ClientAvatar client={client} size="small" />
           </div>
         ) : (
