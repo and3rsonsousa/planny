@@ -68,6 +68,31 @@ const Ideias = (props) => {
           </div>
         </div>
         {ideas && clients ? (
+          clients.map((client) => (
+            <div className="container mx-auto py-8 px-4">
+              <div className="mb-4">
+                <h4 className="text-base uppercase tracking-wider font-semibold text-gray-500">
+                  {client.name}
+                </h4>
+              </div>
+              {client.ideas.length ? (
+                <div className="grid sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
+                  {client.ideas.map((idea, i) => (
+                    <Idea idea={idea} key={i} />
+                  ))}
+                  <IdeaPopup clients={clients} />
+                </div>
+              ) : (
+                <div className="bg-gray-200 py-1 px-3 inline-block rounded-lg text-gray-500 text-sm tracking-wide">
+                  Nenhuma ideia a ser exibida.
+                </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <Loader />
+        )}
+        {/* {ideas && clients ? (
           <div className="py-8 px-4 container mx-auto grid sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
             {ideas.map((idea, i) => (
               <Idea idea={idea} key={i} />
@@ -76,7 +101,7 @@ const Ideias = (props) => {
           </div>
         ) : (
           <Loader />
-        )}
+        )} */}
       </LayoutWrapper>
     </LoginWrapper>
   );
