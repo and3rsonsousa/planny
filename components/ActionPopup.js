@@ -100,14 +100,14 @@ const ActionPopup = (props) => {
         </label>
         <label>
           <h4>Descrição</h4>
-          <input
-            type="text"
+          <textarea
             name="description"
             id="description"
             className="form-field"
+            rows="3"
             value={post.description}
             onChange={handleChange}
-          />
+          ></textarea>
         </label>
 
         <label>

@@ -268,12 +268,12 @@ const Grid = ({ post, classNames }) => {
 
   return (
     <div className={`instagram-grid flyover-parent ${classNames}`}>
-      <div className="absolute w-full h-full p-2 overflow-hidden text-center">
+      <div className="absolute w-full h-full p-4 overflow-hidden text-center">
         <h6 className="text-xx tracking-widest text-gray-400 my-1">
           {dayjs(date).format("D/M/YYYY")}
         </h6>
-        <h6 className="font-semibold text-xs leading-4 mb-1 ">{title}</h6>
-        <div className="text-xx leading-tight font-light text-gray-400 ">
+        <h6 className="font-semibold leading-4 mb-2 ">{title}</h6>
+        <div className="text-sm leading-tight  text-gray-400 line-clamp-4">
           {description}
         </div>
         <div className="absolute bottom-0 right-0 p-1 cursor-pointer">
