@@ -13,6 +13,7 @@ import Idea from "../components/Idea";
 import ClientAvatar from "../components/ClientAvatar";
 import IdeaPopup from "../components/IdeaPopup";
 import ActionPopup from "../components/ActionPopup";
+import Loader from "../components/Loader";
 
 import dayjs from "dayjs";
 
@@ -177,7 +178,7 @@ const Home = () => {
                     <div className="prose mb-4">
                       <h3>
                         Ideias{" "}
-                        <span class="text-sm text-gray-500">
+                        <span className="text-sm text-gray-500">
                           ({ideas.length})
                         </span>
                       </h3>
@@ -202,7 +203,9 @@ const Home = () => {
                 )}
               </div>
             ) : (
-              ""
+              <div className="p-12">
+                <Loader />
+              </div>
             )}
           </div>
         </LayoutWrapper>
