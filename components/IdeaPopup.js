@@ -61,14 +61,22 @@ const IdeaPopup = (props) => {
       <form onSubmit={handleSubmit}>
         <label>
           <h4>Título</h4>
-          <input
+          <textarea
+            name="title"
+            id="title"
+            rows="3"
+            className="form-field"
+            value={idea.title}
+            onChange={handleChange}
+          ></textarea>
+          {/* <input
             type="text"
             name="title"
             id="title"
             className="form-field"
             value={idea.title}
             onChange={handleChange}
-          />
+          /> */}
         </label>
         {props.clients.length > 1 ? (
           <label>
