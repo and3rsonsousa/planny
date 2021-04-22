@@ -203,7 +203,7 @@ const Home = () => {
                 )}
               </div>
             ) : (
-              <div className="p-12">
+              <div className="p-12 h-screen">
                 <Loader />
               </div>
             )}

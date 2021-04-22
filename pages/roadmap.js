@@ -15,7 +15,9 @@ const Roadmap = (props) => {
             <h3>Home</h3>
             <ol></ol>
             <h3>Plan</h3>
-            <ol></ol>
+            <ol>
+              <li>Ao deletar ideias, precisa atualizar a lista de ideias.</li>
+            </ol>
             <h3>Flyover</h3>
             <ol>
               <li>Inserir botão DONE.</li>
