@@ -184,11 +184,30 @@ const getPosts = async (clientID) => {
   return posts;
 };
 
+const getIdeas = async (clientID) => {
+  const { ideas } = await graphcms.request(
+    `query getIdeas (){
+      ideas{
+        id
+        title
+        client{
+          id
+          name
+          bgColor
+          fgColor
+        }
+      }
+    }`
+  );
+  return ideas;
+};
+
 export {
   execGraphQl,
   getClients,
   getClient,
   getPosts,
+  getIdeas,
   graphcms,
   logUser,
   getTheUser,

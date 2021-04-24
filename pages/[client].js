@@ -33,10 +33,12 @@ const Client = (props) => {
   const [visible, setVisible] = App.useVisible;
   const [loading] = App.useLoading;
   const [popup, setPopup] = App.usePopup;
-  const { setPosts } = App;
+  const { setPosts, ideas, setIdeas } = App;
   const client = props.client;
+
   useEffect(() => {
     setPosts(client.posts);
+    setIdeas(client.ideas);
   }, []);
 
   return (
@@ -126,7 +128,11 @@ const Client = (props) => {
                 </div>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3 gap-2">
-                {client.ideas.map((idea, i) => (
+                {/* {client.ideas.map((idea, i) => (
+                  <Idea idea={idea} truncate={true} key={i} />
+                ))} */}
+
+                {ideas.map((idea, i) => (
                   <Idea idea={idea} truncate={true} key={i} />
                 ))}
               </div>

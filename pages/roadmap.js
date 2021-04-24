@@ -17,6 +17,7 @@ const Roadmap = (props) => {
             <h3>Plan</h3>
             <ol>
               <li>Ao deletar ideias, precisa atualizar a lista de ideias.</li>
+              <li>Editar Ideia Popup.</li>
             </ol>
             <h3>Flyover</h3>
             <ol>
