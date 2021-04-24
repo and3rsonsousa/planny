@@ -70,6 +70,12 @@ body {
   }
 }
 
+@layer utilities {
+  .bg-success {
+    @apply opacity-20;
+  }
+}
+
 /* Calendar */
 
 .calendar-grid {
@@ -221,6 +227,11 @@ body {
 }
 .bg-meeting-dark h5 {
   @apply text-white;
+}
+
+.classe-teste {
+  /* @apply border-red-600; */
+  @apply bg-success;
 }
 
 .instagram-grid::after {

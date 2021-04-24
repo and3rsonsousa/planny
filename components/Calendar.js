@@ -143,7 +143,7 @@ const Col = (props) => {
       case 4:
         return "calendar-day-col flyover-parent prose bg-meeting-light";
       default:
-        return "calendar-day-col flyover-parent prose bg-postagem-light";
+        return "calendar-day-col flyover-parent prose";
     }
   };
 
@@ -158,24 +158,7 @@ const Col = (props) => {
   };
 
   return client ? (
-    <div
-      className={
-        showActions
-          ? classNames(action)
-          : "calendar-day-col flyover-parent prose"
-      }
-      style={
-        showActions
-          ? done
-            ? { opacity: 0.2 }
-            : {}
-          : {
-              backgroundColor: client.bgColor,
-              color: client.fgColor,
-              opacity: done ? 0.2 : 1,
-            }
-      }
-    >
+    <div className={`${classNames(action) + (done ? " opacity-20" : "")}`}>
       <div className="flex items-center gap-2">
         {showClientsAvatar ? (
           <div className="sm:-ml-4">

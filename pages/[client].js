@@ -93,7 +93,6 @@ const Client = (props) => {
               </div>
               <Calendar
                 thisMonth={thisMonth}
-                showActions={true}
                 legenda={true}
                 nextMonth={() => setThisMonth(thisMonth.add(1, "M"))}
                 prevMonth={() => setThisMonth(thisMonth.subtract(1, "M"))}
