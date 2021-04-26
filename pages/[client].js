@@ -30,6 +30,7 @@ const Client = (props) => {
   //
   const App = useApp();
   const [thisMonth, setThisMonth] = useState(dayjs());
+  const [expand, setExpand] = useState(false);
   const [visible, setVisible] = App.useVisible;
   const [loading] = App.useLoading;
   const [popup, setPopup] = App.usePopup;
@@ -49,22 +50,73 @@ const Client = (props) => {
         </Head>
         <div className="container mx-auto">
           <div className="md:grid grid-cols-2 lg:grid-cols-3">
-            <section className="p-4 col-span-1 prose relative">
-              {loading && (
+            {!expand ? (
+              <section className="p-4 col-span-1 prose relative">
+                {/* {loading && (
                 <div className="flex justify-end absolute top-0 right-0">
                   <Loader />
                 </div>
-              )}
-              <div className="prose mb-4">
-                <h3>Instagram Grid</h3>
-              </div>
-              <HeaderInstagram Cliente={client} />
-              <InstagramGrid />
-            </section>
-            <section className="p-4 col-span-1 lg:col-span-2">
+              )} */}
+
+                <div className="prose mb-4">
+                  <h3>Instagram Grid</h3>
+                </div>
+
+                <HeaderInstagram Cliente={client} />
+                <InstagramGrid />
+              </section>
+            ) : null}
+            <section
+              className={`p-4 col-span-1 lg:col-span-2 ${
+                expand ? "col-span-full lg:col-span-full" : ""
+              }`}
+            >
               <div className="flex justify-between mb-8">
-                <div className="prose">
-                  <h3>Calendário</h3>
+                <div className="flex items-center">
+                  <div className="prose">
+                    <h3>Calendário</h3>
+                  </div>
+                  <div className="ml-2">
+                    {expand ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 text-brand-600 hover:text-brand-800 cursor-pointer"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        onClick={() => {
+                          console.log("teste");
+                          setExpand(false);
+                        }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 text-gray-300 hover:text-gray-400 cursor-pointer"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        onClick={() => {
+                          console.log("teste");
+                          setExpand(true);
+                        }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                        />
+                      </svg>
+                    )}
+                  </div>
                 </div>
                 <div>
                   <button
