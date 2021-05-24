@@ -30,8 +30,8 @@ const AppProvider = ({ children }) => {
       slug: "evento",
     },
     {
-      name: "Meeting",
-      slug: "meeting",
+      name: "To Do",
+      slug: "todo",
     },
   ];
 

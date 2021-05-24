@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useApp } from "../utility/AppContext";
 import dayjs from "dayjs";
 
 const Popup = (props) => {
   const { useVisible, setToUpdate, toUpdate, setDate } = useApp();
   const [visible, setVisible] = useVisible;
+  const [keep, setKeep] = useState(false);
 
   const handleClose = () => {
     setVisible(false);
     setDate(dayjs().format("YYYY-MM-DD"));
     if (toUpdate) {
-      // console.log("HERE");
       setToUpdate(null);
     }
   };
@@ -46,8 +46,10 @@ const Popup = (props) => {
               <input
                 type="checkbox"
                 id="keep"
+                value={keep}
+                checked={keep}
                 onChange={(e) => {
-                  return !e.target.checked;
+                  setKeep(() => !keep);
                 }}
                 className="border-gray-300 rounded-md w-5 h-5 text-brand-500 focus:ring-brand-300"
               />
@@ -68,7 +70,8 @@ const Popup = (props) => {
                 if (toUpdate) {
                   setToUpdate(null);
                 }
-                if (!document.getElementById("keep").checked) {
+
+                if (!keep) {
                   setVisible(false);
                 } else {
                   if (document.getElementById("title")) {

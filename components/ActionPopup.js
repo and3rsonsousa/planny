@@ -76,6 +76,8 @@ const ActionPopup = (props) => {
       addNewPost(post);
     }
     setPost(emptyState);
+
+    console.log("teste");
     return true;
   };
 
