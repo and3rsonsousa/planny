@@ -67,61 +67,8 @@ const Home = () => {
 
             {clients ? (
               <div className="pb-8 container mx-auto">
-                <div className="lg:flex justify-between items-center">
-                  <div>
-                    <ClientsBar clients={clients} />
-                  </div>
-                  <div className="px-4 pb-8 lg:pb-0 text-center">
-                    <div className="button-group">
-                      <button
-                        className="button"
-                        onClick={() => {
-                          setPopup("idea");
-                          setVisible(true);
-                        }}
-                      >
-                        <span>NOVA IDEIA</span>
-                        <span>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            className="h-5 inline-block ml-1 -mt-1"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                      <button
-                        className="button button-primary"
-                        onClick={() => {
-                          setPopup("action");
-                          setVisible(true);
-                        }}
-                      >
-                        <span>NOVA AÇÃO</span>
-                        <span>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            className="h-5 inline-block ml-1 -mt-1"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <NavBar clients={clients} />
+                <Daily />
                 <div className="grid lg:grid-cols-5 gap-8 px-4 ">
                   {/* Calendário */}
                   <div className="w-full lg:col-span-4">
@@ -241,6 +188,90 @@ const ClientsBar = ({ clients }) => (
           </Link>
         </div>
       ))}
+    </div>
+  </div>
+);
+
+const Daily = () => (
+  <div className="py-8 px-4">
+    <div className="prose pb-8">
+      <h3>Daily</h3>
+    </div>
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 pb-8">
+      {[
+        { title: "Financeiro" },
+        { title: "Ações do dia" },
+        { title: "Planejamento" },
+        { title: "Adiantar" },
+      ].map((item, index) => (
+        <div
+          className="text-center flex flex-col items-center md:flex-row md:text-left"
+          key={index}
+        >
+          <div className="w-8 h-8 bg-brand-600 text-white rounded-full flex items-center justify-center text-center mb-2 md:mb-0 mr-4 md:w-12 md:h-12 md:text-xl ">
+            <span>{index + 1}</span>
+          </div>
+          <div className="md:text-lg text-gray-700">{item.title}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const NavBar = ({ clients }) => (
+  <div className="lg:flex flex-wrap justify-between items-center">
+    <div>
+      <ClientsBar clients={clients} />
+    </div>
+    <div className="px-4 pb-8 lg:pb-0 text-center">
+      <div className="button-group">
+        <button
+          className="button"
+          onClick={() => {
+            setPopup("idea");
+            setVisible(true);
+          }}
+        >
+          <span>NOVA IDEIA</span>
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="h-5 inline-block ml-1 -mt-1"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          className="button button-primary"
+          onClick={() => {
+            setPopup("action");
+            setVisible(true);
+          }}
+        >
+          <span>NOVA AÇÃO</span>
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="h-5 inline-block ml-1 -mt-1"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 );
