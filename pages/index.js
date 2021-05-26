@@ -199,19 +199,50 @@ const Daily = () => (
     </div>
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 pb-8">
       {[
-        { title: "Financeiro" },
+        {
+          title: "Financeiro",
+          steps: [
+            {
+              title: "Pagamento Jonas",
+              when: "Dia 20",
+            },
+            {
+              title: "Pagamento Aryane",
+              when: "Dia 20",
+            },
+            {
+              title: "Pagamento Emporium",
+              when: "Dia 10",
+            },
+            {
+              title: "Pagamento Iara",
+              when: "Dia 20",
+            },
+          ],
+        },
         { title: "Ações do dia" },
         { title: "Planejamento" },
         { title: "Adiantar" },
       ].map((item, index) => (
         <div
-          className="text-center flex flex-col items-center md:flex-row md:text-left"
+          className="text-center flex flex-col items-center md:items-start md:flex-row md:text-left"
           key={index}
         >
-          <div className="w-8 h-8 bg-brand-600 text-white rounded-full flex items-center justify-center text-center mb-2 md:mb-0 mr-4 md:w-12 md:h-12 md:text-xl ">
+          <div className="w-8 h-8 bg-brand-600 text-white rounded-full flex items-center justify-center text-center mb-2 md:mb-0 mr-4 md:w-12 md:h-12 md:text-xl md:-mt-3 ">
             <span>{index + 1}</span>
           </div>
-          <div className="md:text-lg text-gray-700">{item.title}</div>
+          <div>
+            <div className="md:text-lg text-gray-700">{item.title}</div>
+            <div className="mt-2 text-sm">
+              {item.steps &&
+                item.steps.map((d, i) => (
+                  <div className="w-full flex gap-4 justify-between">
+                    <div>{d.title}</div>
+                    <div>{d.when}</div>
+                  </div>
+                ))}
+            </div>
+          </div>
         </div>
       ))}
     </div>
