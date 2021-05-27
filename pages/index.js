@@ -22,10 +22,10 @@ const Home = () => {
   const { user } = useContext(AuthContext);
 
   const [thisMonth, setThisMonth] = useState(dayjs());
-  const { posts, ideas, setPosts, setIdeas, useVisible, usePopup } = useApp();
+  const { posts, ideas, setPosts, setIdeas, usePopup } = useApp();
   const [clients, setClients] = useState(null);
-  const [visible, setVisible] = useVisible;
-  const [popup, setPopup] = usePopup;
+
+  const [popup] = usePopup;
   let completedActions = 0;
 
   useEffect(() => {
@@ -254,62 +254,67 @@ const Daily = () => (
   </div>
 );
 
-const NavBar = ({ clients }) => (
-  <div className="lg:flex flex-wrap justify-between items-center">
-    <div>
-      <ClientsBar clients={clients} />
-    </div>
-    <div className="px-4 pb-8 lg:pb-0 text-center">
-      <div className="button-group">
-        <button
-          className="button"
-          onClick={() => {
-            setPopup("idea");
-            setVisible(true);
-          }}
-        >
-          <span>NOVA IDEIA</span>
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="h-5 inline-block ml-1 -mt-1"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-        <button
-          className="button button-primary"
-          onClick={() => {
-            setPopup("action");
-            setVisible(true);
-          }}
-        >
-          <span>NOVA AÇÃO</span>
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="h-5 inline-block ml-1 -mt-1"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+const NavBar = ({ clients }) => {
+  const { useVisible, usePopup } = useApp();
+  const [visible, setVisible] = useVisible;
+  const [popup, setPopup] = usePopup;
+  return (
+    <div className="lg:flex flex-wrap justify-between items-center">
+      <div>
+        <ClientsBar clients={clients} />
+      </div>
+      <div className="px-4 pb-8 lg:pb-0 text-center">
+        <div className="button-group">
+          <button
+            className="button"
+            onClick={() => {
+              setPopup("idea");
+              setVisible(true);
+            }}
+          >
+            <span>NOVA IDEIA</span>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="h-5 inline-block ml-1 -mt-1"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+          <button
+            className="button button-primary"
+            onClick={() => {
+              setPopup("action");
+              setVisible(true);
+            }}
+          >
+            <span>NOVA AÇÃO</span>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="h-5 inline-block ml-1 -mt-1"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Home;
