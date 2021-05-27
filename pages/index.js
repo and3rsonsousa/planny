@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+
 import Link from "next/link";
 import Head from "next/head";
 import Router from "next/router";
@@ -197,7 +198,7 @@ const Daily = () => (
     <div className="prose pb-8">
       <h3>Daily</h3>
     </div>
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 pb-8">
+    <div className="grid grid-cols-2 mb-8 bg-white shadow-sm rounded-lg md:grid-cols-4 md:divide-x">
       {[
         {
           title: "Financeiro",
@@ -225,14 +226,17 @@ const Daily = () => (
         { title: "Adiantar" },
       ].map((item, index) => (
         <div
-          className="text-center flex flex-col items-center md:items-start md:flex-row md:text-left"
+          className="py-8 px-2 md:p-8 text-center flex flex-col items-center lg:flex-row lg:text-left"
           key={index}
         >
-          <div className="w-8 h-8 bg-brand-600 text-white rounded-full flex items-center justify-center text-center mb-2 md:mb-0 mr-4 md:w-12 md:h-12 md:text-xl md:-mt-3 ">
+          <div className="w-8 h-8 bg-brand-600 text-white rounded-full flex items-center justify-center text-center mb-2 md:w-12 md:h-12 md:text-xl lg:mb-0 lg:mr-4">
             <span>{index + 1}</span>
           </div>
           <div>
-            <div className="md:text-lg text-gray-700">{item.title}</div>
+            <div className="font-semibold uppercase text-gray-600 text-sm md:font-base tracking-wider">
+              {item.title}
+            </div>
+            {/* 
             <div className="mt-2 text-sm">
               {item.steps &&
                 item.steps.map((d, i) => (
@@ -242,6 +246,7 @@ const Daily = () => (
                   </div>
                 ))}
             </div>
+          */}
           </div>
         </div>
       ))}

@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import { useApp } from "../utility/AppContext";
 import Flyover from "../components/Flyover";
-import { useEffect } from "react";
 import ClientAvatar from "./ClientAvatar";
 
 const Calendar = ({
