@@ -4,15 +4,8 @@ import { useApp } from "../utility/AppContext";
 import Popup from "./Popup";
 
 const ActionPopup = (props) => {
-  const {
-    posts,
-    addNewPost,
-    date,
-    Actions,
-    toUpdate,
-    updatePost,
-    useLoading,
-  } = useApp();
+  const { posts, addNewPost, date, Actions, toUpdate, updatePost, useLoading } =
+    useApp();
 
   const emptyState = {
     title: "",
@@ -77,7 +70,6 @@ const ActionPopup = (props) => {
     }
     setPost(emptyState);
 
-    console.log("teste");
     return true;
   };
 

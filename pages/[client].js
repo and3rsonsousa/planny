@@ -85,7 +85,6 @@ const Client = (props) => {
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         onClick={() => {
-                          console.log("teste");
                           setExpand(false);
                         }}
                       >
@@ -104,7 +103,6 @@ const Client = (props) => {
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         onClick={() => {
-                          console.log("teste");
                           setExpand(true);
                         }}
                       >
